@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Github, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ProjectItem } from "@/components/project-item";
+import { ProjectCard } from "@/components/project-card";
 import { ContactSection } from "@/components/contact-section";
-import Image from "next/image";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Home() {
   return (
@@ -50,38 +50,29 @@ export default function Home() {
                 Professional Work
               </h2>
               <div className="space-y-24">
-                <ProjectItem
+                <ProjectCard
                   title="Digital Greeting Card Platform"
                   description="Developing a digital card system allowing users to create, customize, and send virtual greeting cards, expanding the company's product offerings beyond physical cards."
                   role="Full Stack Engineer"
                   year="2024-Present"
                   tags={["React", "Node.js", "GraphQL", "Django", "Python"]}
-                  image="/digital-cards-tech.svg"
-                  imageAlt="Digital Greeting Card Platform"
                   link="#"
-                  align="right"
                 />
-                <ProjectItem
+                <ProjectCard
                   title="TipTap Card Editor Rebuild"
                   description="Completely rebuilt a web-based greeting card rich text editor using TipTap and ProseMirror, significantly boosting performance and reducing re-renders for a smoother user experience."
                   role="Front-End Engineer"
                   year="2024-2025"
                   tags={["React", "TypeScript", "TipTap", "ProseMirror", "CSS"]}
-                  image="/tiptap-tech.svg"
-                  imageAlt="TipTap Card Editor Rebuild"
                   link="#"
-                  align="left"
                 />
-                <ProjectItem
+                <ProjectCard
                   title="Saleor E-Commerce Integration"
                   description="Led the migration of a legacy custom ordering system to the Saleor e-commerce platform, enhancing order management capabilities and improving the customer purchasing experience."
                   role="Full Stack Engineer"
                   year="2023-2025"
                   tags={["React", "Python", "GraphQL", "Saleor", "PostgreSQL"]}
-                  image="/saleor-tech.svg"
-                  imageAlt="Saleor E-Commerce Integration"
                   link="#"
-                  align="right"
                 />
               </div>
               <div className="mt-16 text-center">
@@ -89,10 +80,10 @@ export default function Home() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                  className="hover:bg-secondary hover:text-secondary-foreground"
                 >
                   <a
-                    href="https://github.com"
+                    href="https://github.com/nickqweaver"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center"
@@ -108,7 +99,7 @@ export default function Home() {
           {/* About */}
           <section id="about" className="py-20 bg-secondary/30">
             <div className="container">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+              <div className="grid grid-cols-1 gap-12 items-start">
                 <div className="md:col-span-2 space-y-6">
                   <h2 className="text-3xl font-bold mb-6 teal-gradient">
                     About Me
@@ -158,36 +149,6 @@ export default function Home() {
                         ))}
                       </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4 text-primary">
-                        Achievements
-                      </h3>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li>🏆 Tech Innovator Award, 2024</li>
-                        <li>🎓 MSc in Computer Science</li>
-                        <li>
-                          📚 Author, &quote;Modern Web Architecture&quote;
-                        </li>
-                        <li>🎤 Speaker, WebSummit 2023</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="md:col-span-1">
-                  <div className="sticky top-24">
-                    <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                      <Image
-                        src="/placeholder.svg?height=400&width=400"
-                        alt="Your Name"
-                        layout="fill"
-                        objectFit="cover"
-                        className="transition-all duration-300 hover:scale-105"
-                      />
-                    </div>
-                    <div className="mt-4 text-center">
-                      <h3 className="text-xl font-semibold">Your Name</h3>
-                      <p className="text-muted-foreground">Software Engineer</p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -200,7 +161,7 @@ export default function Home() {
         <footer className="border-t border-border py-6 bg-background">
           <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} NICKWEAVER.DEV. All rights reserved.
+              © {new Date().getFullYear()} NICKWEAVER.DEV All rights reserved.
             </div>
             <div className="flex gap-6">
               <a
