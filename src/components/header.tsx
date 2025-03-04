@@ -14,13 +14,13 @@ const links = [
   { href: "/", title: "Home" },
   { href: "/#work", title: "Work" },
   { href: "/#about", title: "About" },
-  { href: "/#blog", title: "Blog" },
+  { href: "/blog", title: "Blog" },
   { href: "/#contact", title: "Contact" },
 ];
 export function Header() {
   const link = "text-sm hover:text-primary transition-colors";
   return (
-    <header className="fixed top-0 w-full z-40 bg-background">
+    <header className="fixed top-0 w-full z-40 bg-background/80 backdrop-filter backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between">
         <Link
           href="/"

@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { Github, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "@/components/project-card";
 import { ContactSection } from "@/components/contact-section";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Icon } from "@iconify/react";
 
 export default function Home() {
   return (
@@ -35,7 +34,7 @@ export default function Home() {
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Link href="#contact" className="flex items-center">
-                    <Mail className="mr-2 h-5 w-5" />
+                    <Icon className="mr-2 h-5 w-5" icon="solar:letter-linear" />
                     Get in Touch
                   </Link>
                 </Button>
@@ -49,7 +48,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold mb-12 teal-gradient">
                 Professional Work
               </h2>
-              <div className="space-y-24">
+              <div className="space-y-8">
                 <ProjectCard
                   title="Digital Greeting Card Platform"
                   description="Developing a digital card system allowing users to create, customize, and send virtual greeting cards, expanding the company's product offerings beyond physical cards."
@@ -88,7 +87,10 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="flex items-center"
                   >
-                    <Github className="mr-2 h-5 w-5" />
+                    <Icon
+                      icon="octicon:mark-github-24"
+                      className="mr-2 h-6 w-6"
+                    />
                     View GitHub Profile
                   </a>
                 </Button>
@@ -165,19 +167,19 @@ export default function Home() {
             </div>
             <div className="flex gap-6">
               <a
-                href="https://github.com"
+                href="https://github.com/nickqweaver"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <Github className="h-5 w-5" />
+                <Icon icon="octicon:mark-github-24" className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>
               <a
                 href="mailto:hello@teal.dev"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                <Mail className="h-5 w-5" />
+                <Icon icon="solar:letter-linear" className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </a>
             </div>

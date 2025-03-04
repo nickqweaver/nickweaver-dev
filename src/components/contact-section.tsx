@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { Icon } from "@iconify/react";
 
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,10 +34,13 @@ export function ContactSection() {
 
           {isSubmitted ? (
             <div className="text-center p-8 rounded-lg bg-secondary">
-              <CheckCircle2 className="h-12 w-12 text-primary mx-auto mb-4" />
+              <Icon
+                className="h-12 w-12 text-primary mx-auto mb-4"
+                icon="solar:check-circle-linear"
+              />
               <h3 className="text-2xl font-medium mb-2">Message Sent!</h3>
               <p className="text-muted-foreground mb-6">
-                Thank you for reaching out. I'll get back to you as soon as
+                Thank you for reaching out. I&apos;ll get back to you as soon as
                 possible.
               </p>
               <Button onClick={() => setIsSubmitted(false)} variant="outline">
@@ -95,14 +98,7 @@ export function ContactSection() {
                 disabled={isSubmitting}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  "Send Message"
-                )}
+                {isSubmitting ? <>Sending...</> : "Send Message"}
               </Button>
             </form>
           )}
