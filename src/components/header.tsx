@@ -30,7 +30,7 @@ export function Header() {
             icon="solar:code-circle-line-duotone"
             className="w-8 h-8 text-teal"
           />
-          <span className="text-lg md:text-2xl">NICK WEAVER</span>
+          <span className="text-lg md:text-2xl">NICKWEAVER.DEV</span>
         </Link>
         <nav className="flex gap-4 md:gap-8">
           <ul className="md:hidden">

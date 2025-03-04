@@ -19,7 +19,7 @@ export default function Home() {
                 Full Stack Engineer with 5 years of experience building robust
                 web applications and transforming user experiences.
               </p>
-              <div className="flex gap-4 pt-4">
+              <div className="flex-col sm:flex-row flex gap-4 pt-4">
                 <Button
                   asChild
                   size="lg"
