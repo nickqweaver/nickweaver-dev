@@ -6,6 +6,8 @@ author:
   name: Nick Weaver
 ogImage:
   url: "/assets/blog/dynamic-routing/cover.jpg"
+githubRepo: "https://github.com/nickqweaver/graphql-data-loader-example"
+readingTime: "15 min"
 ---
 
 # Scalable GraphQL: Why you need DataLoaders

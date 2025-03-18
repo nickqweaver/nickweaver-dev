@@ -183,32 +183,6 @@ export default function Home() {
             {/* Contact */}
             <ContactSection />
           </main>
-          <footer className="border-t border-border py-6 bg-background">
-            <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} NICKWEAVER.DEV All rights
-                reserved.
-              </div>
-              <div className="flex gap-6">
-                <a
-                  href="https://github.com/nickqweaver"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Icon icon="octicon:mark-github-24" className="h-5 w-5" />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a
-                  href="mailto:hello@teal.dev"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Icon icon="solar:letter-linear" className="h-5 w-5" />
-                  <span className="sr-only">Email</span>
-                </a>
-              </div>
-            </div>
-          </footer>
         </div>
       </div>
     </>

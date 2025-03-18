@@ -11,6 +11,8 @@ export type Post = {
   ogImage: string;
   content: string;
   slug: string;
+  githubRepo?: string;
+  readingTime: string;
 };
 
 const POSTS_DIR = path.join(process.cwd(), "_posts");
