@@ -329,7 +329,9 @@ This implementation approach offers several advantages:
 
 Remember that each GraphQL request should have its own DataLoader instances to prevent cross-request caching issues. The pattern above ensures that a new set of loaders is created for each request context.
 
-## Test Configurations
+### Benchmarks
+
+#### Test Configurations
 
 | Run | Label  | Categories | Products/Category | Manufacturers | Total Records |
 | --- | ------ | ---------- | ----------------- | ------------- | ------------- |
@@ -338,9 +340,9 @@ Remember that each GraphQL request should have its own DataLoader instances to p
 | C   | Large  | 200        | 50                | 50            | 10,000        |
 | D   | XL     | 1000       | 100               | 100           | 100,000       |
 
-## Performance Results
+#### Performance Results
 
-### Run A (Small Dataset - 50 Records)
+##### Run A (Small Dataset - 50 Records)
 
 | Metric                | With DataLoader | Without DataLoader | Improvement |
 | --------------------- | --------------- | ------------------ | ----------- |
@@ -349,7 +351,7 @@ Remember that each GraphQL request should have its own DataLoader instances to p
 | Min Response Time     | 1.79 ms         | 6.95 ms            | 74.2%       |
 | Max Response Time     | 43.60 ms        | 58.42 ms           | 25.4%       |
 
-### Run B (Medium Dataset - 1,000 Records)
+##### Run B (Medium Dataset - 1,000 Records)
 
 | Metric                | With DataLoader | Without DataLoader | Improvement |
 | --------------------- | --------------- | ------------------ | ----------- |
@@ -358,7 +360,7 @@ Remember that each GraphQL request should have its own DataLoader instances to p
 | Min Response Time     | 19.99 ms        | 133.27 ms          | 85.0%       |
 | Max Response Time     | 85.83 ms        | 225.82 ms          | 62.0%       |
 
-### Run C (Large Dataset - 10,000 Records)
+##### Run C (Large Dataset - 10,000 Records)
 
 | Metric                | With DataLoader | Without DataLoader | Improvement |
 | --------------------- | --------------- | ------------------ | ----------- |
@@ -367,7 +369,7 @@ Remember that each GraphQL request should have its own DataLoader instances to p
 | Min Response Time     | 209.72 ms       | 1,445.89 ms        | 85.5%       |
 | Max Response Time     | 418.55 ms       | 1,807.23 ms        | 76.8%       |
 
-### Run D (Extra Large Dataset - 100,000 Records)
+##### Run D (Extra Large Dataset - 100,000 Records)
 
 | Metric                | With DataLoader | Without DataLoader | Improvement |
 | --------------------- | --------------- | ------------------ | ----------- |
