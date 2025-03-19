@@ -140,7 +140,7 @@ SELECT * FROM manufacturers WHERE product_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);
 -- 1 for manufacturers
 ```
 
-This no longer increases the number of queries as your data grows with the help of batching (More on this below).
+This no longer increases the number of queries as your data grows with the help of batching (more on this below).
 
 ## How DataLoaders Work
 
