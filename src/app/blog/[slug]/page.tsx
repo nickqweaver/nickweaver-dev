@@ -3,6 +3,7 @@ import { remark } from "remark";
 import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
 import remarkRehype from "remark-rehype";
+import remarkGfm from "remark-gfm";
 
 import "prismjs/themes/prism-tomorrow.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,6 +15,7 @@ export default async function Post(props: { params: { slug: string } }) {
   const { author, date, readingTime } = post;
 
   const result = await remark()
+    .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypePrism, { ignoreMissing: true })
     .use(rehypeStringify)
@@ -36,7 +38,11 @@ export default async function Post(props: { params: { slug: string } }) {
       <div className="w-full flex items-center justify-between space-x-4 mb-6 pb-6 border-b not-prose">
         <div className="flex items-center gap-2">
           <Avatar className="h-12 w-12">
-            <AvatarImage alt={author.name} />
+            <AvatarImage
+              alt={author.name}
+              src="https://cdn.towslate.com/public/system/static/nickheadshot.png"
+              className="object-cover"
+            />
             <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">

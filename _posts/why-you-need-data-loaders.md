@@ -12,10 +12,18 @@ readingTime: "15 min"
 
 # Scalable GraphQL: Why you need DataLoaders
 
+## TL;DR
+
+DataLoaders solve the N+1 query problem in GraphQL by batching and caching database queries, reducing response times by upto 85% and allowing your API to scale efficiently with data growth. This article explains how DataLoaders work and provides implementation patterns you can apply to your GraphQL API.
+
+Checkout the [GitHub](https://github.com/nickqweaver/graphql-data-loader-example) repository for a full interactive demo, code examples and benchmarking tools.
+
 ## Introduction
 
 If you're building a GraphQL API that needs to scale, you've likely encountered performance bottlenecks when handling nested queries. One of the most common issues is the N+1 query problem, which can dramatically increase database load and response times. This article explores how DataLoaders solve this problem by efficiently batching and caching database queries.
-Prerequisites
+
+### Prerequisites
+
 This article assumes you're familiar with:
 
 - Basic GraphQL concepts (queries, resolvers, schema, context)
@@ -24,8 +32,9 @@ This article assumes you're familiar with:
 
 Our example uses Node.js with Apollo GraphQL and Drizzle ORM, but the concepts apply regardless of your specific tech stack.
 
-The N+1 Problem in GraphQL
-Although the N+1 problem isn't exclusive to GraphQL, GraphQL's nested query structure makes it particularly prone to amplifying this issue. Let's explore why through a practical example.
+### The N+1 Problem in GraphQL
+
+Although the N+1 problem isn't exclusive to GraphQL, GraphQL's nested query structure makes it prone to amplifying this issue. Let's explore why through a practical example.
 
 ### Schema structure
 
@@ -108,7 +117,8 @@ SELECT * FROM manufacturers WHERE id = 9;
 -- 9 for manufacturers (one per product)
 ```
 
-This small example with just 3 categories and 3 products per category already generates 13 database queries. Scale that up to something more realistic like 25 categories with 25 products each, and you're suddenly looking at 651 database queries (1 + 25 + 625) for a single request. This is clearly not sustainable.
+This small example with just 3 categories and 3 products per category already generates 13 database queries. To make this worse, even if all product results shared the same manufacture
+we would still unecessarily query the db for the same manufacture N Product times. This falls flat at scale.
 
 ## After DataLoader
 
@@ -125,13 +135,13 @@ SELECT * FROM products WHERE category_id = 1, 2, 3;
 -- Finally, fetch all manufactures
 SELECT * FROM manufacturers WHERE product_id = 1, 2, 3, 4, 5, 6, 7, 8, 9;
 
--- Total: 13 queries
+-- Total: 3 queries
 -- 1 for categories
--- 1 for products (one per category)
--- 1 for manufacturers (one per product)
+-- 1 for products
+-- 1 for manufacturers
 ```
 
-The great thing about this approach is that we've reduced our query count from 13 to just 3, regardless of the number of categories or products. Even if we had 100 categories with 50 products each, we'd still only execute 3 queries instead of 5,001. The number of database queries no longer increases linearly with the size of your dataset, eliminating the N+1 problem entirely.
+This no longer increases the number of queries as your data grows with the help of batching (More on this below).
 
 ## How DataLoaders Work
 
@@ -143,9 +153,11 @@ Each DataLoader instance requires a batch loading function that serves as its fo
 
 - Accept an array of keys (like product IDs or manufacturer IDs)
 - Return a Promise that resolves to an array of values or errors
-- Maintain the same order as the input keys
+- Maintain the same order as the input keys and its coresponding result
 
 ```javascript
+import DataLoader from "dataloader";
+
 const productCategoryLoader = new DataLoader(async (ids) => {
   const products = await db.products.findMany({
     where: { categoryId: { in: ids } },
@@ -178,7 +190,7 @@ DataLoader implements a per-request memoization cache that:
 - Is not intended as a permanent response cache
 - Helps prevent duplicate database queries within a single request
 
-For example, if multiple products reference the same manufacturer:
+For example, if multiple products reference the same manufacturer in the same request:
 
 ```javascript
 // Only triggers one database query even if called multiple times
@@ -203,9 +215,9 @@ The process flows like this:
 3. On next tick, batch function executes with all collected keys
 4. Results are distributed back to original `load()` promises
 
-## IMAGE HERE
+![Diagram](https://cdn.towslate.com/public/system/static/dataloader_diagram.png)
 
-This combination of mechanisms makes DataLoader particularly efficient for GraphQL APIs, reducing the number of database queries while maintaining clean resolver code.
+This combination of mechanisms makes DataLoader efficient for GraphQL APIs, reducing the number of database queries while maintaining clean resolver code.
 
 ## Implementation
 
@@ -317,7 +329,55 @@ This implementation approach offers several advantages:
 
 Remember that each GraphQL request should have its own DataLoader instances to prevent cross-request caching issues. The pattern above ensures that a new set of loaders is created for each request context.
 
-### Demo
+## Test Configurations
 
-I've created a demo repo here that has 2 queries with example schema. One query uses data loaders the other one doesn't. You can play around with them your self to see
-how much of a performance hit queries will take without using data loaders.
+| Run | Label  | Categories | Products/Category | Manufacturers | Total Records |
+| --- | ------ | ---------- | ----------------- | ------------- | ------------- |
+| A   | Small  | 10         | 5                 | 5             | 50            |
+| B   | Medium | 50         | 20                | 20            | 1,000         |
+| C   | Large  | 200        | 50                | 50            | 10,000        |
+| D   | XL     | 1000       | 100               | 100           | 100,000       |
+
+## Performance Results
+
+### Run A (Small Dataset - 50 Records)
+
+| Metric                | With DataLoader | Without DataLoader | Improvement |
+| --------------------- | --------------- | ------------------ | ----------- |
+| Average Response Time | 3.36 ms         | 9.42 ms            | 64.3%       |
+| Median Response Time  | 2.55 ms         | 8.08 ms            | 68.4%       |
+| Min Response Time     | 1.79 ms         | 6.95 ms            | 74.2%       |
+| Max Response Time     | 43.60 ms        | 58.42 ms           | 25.4%       |
+
+### Run B (Medium Dataset - 1,000 Records)
+
+| Metric                | With DataLoader | Without DataLoader | Improvement |
+| --------------------- | --------------- | ------------------ | ----------- |
+| Average Response Time | 24.02 ms        | 144.74 ms          | 83.4%       |
+| Median Response Time  | 21.22 ms        | 139.39 ms          | 84.8%       |
+| Min Response Time     | 19.99 ms        | 133.27 ms          | 85.0%       |
+| Max Response Time     | 85.83 ms        | 225.82 ms          | 62.0%       |
+
+### Run C (Large Dataset - 10,000 Records)
+
+| Metric                | With DataLoader | Without DataLoader | Improvement |
+| --------------------- | --------------- | ------------------ | ----------- |
+| Average Response Time | 238.91 ms       | 1,543.83 ms        | 84.5%       |
+| Median Response Time  | 231.13 ms       | 1,537.57 ms        | 85.0%       |
+| Min Response Time     | 209.72 ms       | 1,445.89 ms        | 85.5%       |
+| Max Response Time     | 418.55 ms       | 1,807.23 ms        | 76.8%       |
+
+### Run D (Extra Large Dataset - 100,000 Records)
+
+| Metric                | With DataLoader | Without DataLoader | Improvement |
+| --------------------- | --------------- | ------------------ | ----------- |
+| Average Response Time | 6,133.99 ms     | 20592.45 ms        | 70.2%       |
+| Median Response Time  | 6,068.14 ms     | 20511.97 ms        | 70.4%       |
+| Min Response Time     | 5,761.18 ms     | 19250.59 ms        | 70.1%       |
+| Max Response Time     | 6,807.52 ms     | 21962.64 ms        | 69.0%       |
+
+## Conclusion
+
+These benchmarks clearly demonstrate DataLoader's effectiveness at solving the N+1 query problem in GraphQL. The performance improvements range from 64% faster with small datasets to over 84% faster with large datasets, making DataLoader essential for production GraphQL APIs handling relational data at scale.
+
+Ready to implement DataLoaders in your GraphQL API? Check out the complete code examples [here](https://github.com/nickqweaver/graphql-data-loader-example) to get started
