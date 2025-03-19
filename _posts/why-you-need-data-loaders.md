@@ -117,8 +117,7 @@ SELECT * FROM manufacturers WHERE id = 9;
 -- 9 for manufacturers (one per product)
 ```
 
-This small example with just 3 categories and 3 products per category already generates 13 database queries. To make this worse, even if all product results shared the same manufacture
-we would still unecessarily query the db for the same manufacture N Product times. This falls flat at scale.
+To make this worse, even if all product results shared the same manufacturer, we would still unnecessarily query the database for the same manufacturer multiple times - once for each product. This approach completely fails to scale.
 
 ## After DataLoader
 
@@ -130,10 +129,10 @@ SELECT * FROM categories;
 -- Returns: [{id: 1, name: 'Electronics'}, {id: 2, name: 'Books'}, {id: 3, name: 'Clothing'}]
 
 -- Then for EACH category, fetch its products
-SELECT * FROM products WHERE category_id = 1, 2, 3;
+SELECT * FROM products WHERE category_id IN (1, 2, 3);
 
 -- Finally, fetch all manufactures
-SELECT * FROM manufacturers WHERE product_id = 1, 2, 3, 4, 5, 6, 7, 8, 9;
+SELECT * FROM manufacturers WHERE product_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);
 
 -- Total: 3 queries
 -- 1 for categories
