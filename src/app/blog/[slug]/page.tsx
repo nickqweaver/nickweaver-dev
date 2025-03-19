@@ -36,36 +36,36 @@ export default async function Post(props: { params: { slug: string } }) {
   return (
     <article className="w-full px-4 my-24 mx-auto prose prose-sm md:prose-lg xl:prose-xl dark:prose-invert">
       <div className="w-full flex items-center justify-between space-x-4 mb-6 pb-6 border-b not-prose">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-12 w-12">
-            <AvatarImage
-              alt={author.name}
-              src="https://cdn.towslate.com/public/system/static/nickheadshot.png"
-              className="object-cover"
-            />
-            <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <h3 className="leading-tight font-medium m-0">{author.name}</h3>
-            <div className="flex items-center text-sm text-muted-foreground space-x-3">
-              <div className="flex justify-center gap-4 items-center">
-                <p className="text-sm text-muted-foreground">
-                  Software Engineer
-                </p>
-                <a
-                  href={`https://twitter.com/TheSWEaver`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline flex items-center gap-1 text-sm text-muted-foreground"
-                >
-                  <Icon icon="hugeicons:new-twitter" className="w-4 h-4" />
-                  @TheSWEaver
-                </a>
+        <div className="flex flex-col items-start gap-2">
+          <div className="flex items-center gap-2">
+            <Avatar className="h-14 w-14">
+              <AvatarImage
+                alt={author.name}
+                src="https://cdn.towslate.com/public/system/static/nickheadshot.png"
+                className="object-cover"
+              />
+              <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <h3 className="leading-tight font-medium m-0">{author.name}</h3>
+              <div className="flex items-center text-sm text-muted-foreground space-x-3">
+                <div className="flex flex-col justify-center items-center">
+                  <p className="text-gray-400 text-sm">Software Engineer</p>
+                  <a
+                    href={`https://twitter.com/TheSWEaver`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline w-full flex items-center justify-start gap-1 text-gray-500 hover:text-blue-400 transition-colors"
+                  >
+                    <Icon icon="hugeicons:new-twitter" className="w-3 h-3" />
+                    @TheSWEaver
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+        <div className="flex flex-col items-end md:flex-row md:items-center space-x-4 text-sm text-muted-foreground">
           <div className="flex items-center">
             <Icon
               icon="solar:calendar-minimalistic-linear"
