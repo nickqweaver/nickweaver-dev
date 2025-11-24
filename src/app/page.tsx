@@ -101,7 +101,7 @@ export default function Home() {
                     role="Full Stack Engineer"
                     year="2025"
                     tags={["Python"]}
-                    linke="https://github.com/nickqweaver/tiny-lsm"
+                    link="https://github.com/nickqweaver/tiny-lsm"
                   />
                 </div>
                 <div className="mt-16 text-center">
