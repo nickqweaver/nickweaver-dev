@@ -214,7 +214,7 @@ The process flows like this:
 3. On next tick, batch function executes with all collected keys
 4. Results are distributed back to original `load()` promises
 
-![Diagram](https://cdn.towslate.com/public/system/static/dataloader_diagram.png)
+![Diagram](https://api.uploadslate.com/files/2e048c3e-b146-40d6-ba12-27b68824384a/preview?width=957&height=405&format=webp)
 
 This combination of mechanisms makes DataLoader efficient for GraphQL APIs, reducing the number of database queries while maintaining clean resolver code.
 

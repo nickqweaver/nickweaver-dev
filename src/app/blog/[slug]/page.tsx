@@ -41,7 +41,7 @@ export default async function Post(props: { params: { slug: string } }) {
             <Avatar className="h-14 w-14">
               <AvatarImage
                 alt={author.name}
-                src="https://cdn.towslate.com/public/system/static/nickheadshot.png"
+                src="https://api.uploadslate.com/files/ca454007-87bd-46e7-a34f-87f40efd308a/preview?width=56&height=56&format=webp"
                 className="object-cover"
               />
               <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>

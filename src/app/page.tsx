@@ -95,6 +95,14 @@ export default function Home() {
                     ]}
                     link="#"
                   />
+                  <ProjectCard
+                    title="Tiny LSM"
+                    description="A toy LSM (Log Structured Merge Tree). I learned about LSM trees being the backbone for NoSQL databases so decided to build a very simple basic version of this"
+                    role="Full Stack Engineer"
+                    year="2025"
+                    tags={["Python"]}
+                    linke="https://github.com/nickqweaver/tiny-lsm"
+                  />
                 </div>
                 <div className="mt-16 text-center">
                   <Button
@@ -162,8 +170,6 @@ export default function Home() {
                             "TypeScript",
                             "AWS",
                             "Docker",
-                            "Kubernetes",
-                            "TensorFlow",
                             "PostgreSQL",
                             "MongoDB",
                             "Redis",
