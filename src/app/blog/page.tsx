@@ -1,8 +1,8 @@
-import { BlogPost } from "@/components/blog-post";
-import { getAllPosts } from "@/lib/api";
+import { BlogPost } from "@/components/blog-post"
+import { getAllPosts } from "@/lib/api"
 
 export default function BlogPage() {
-  const post = getAllPosts();
+  const post = getAllPosts()
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
@@ -16,5 +16,5 @@ export default function BlogPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

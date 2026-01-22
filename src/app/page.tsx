@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ProjectCard } from "@/components/project-card";
-import { ContactSection } from "@/components/contact-section";
-import { Icon } from "@iconify/react";
-import Script from "next/script";
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ProjectCard } from "@/components/project-card"
+import { ContactSection } from "@/components/contact-section"
+import { Icon } from "@iconify/react"
+import Script from "next/script"
 
 export default function Home() {
   return (
@@ -23,8 +23,8 @@ export default function Home() {
                   Crafting Digital Experiences
                 </h1>
                 <p className="text-xl text-muted-foreground max-w-xl">
-                  Full Stack Engineer with 5 years of experience building robust
-                  web applications and transforming user experiences.
+                  Full Stack Engineer with 5 years of experience building robust web applications
+                  and transforming user experiences.
                 </p>
                 <div className="flex-col sm:flex-row flex gap-4 pt-4">
                   <Button
@@ -41,10 +41,7 @@ export default function Home() {
                     className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                   >
                     <Link href="#contact" className="flex items-center">
-                      <Icon
-                        className="mr-2 h-5 w-5"
-                        icon="solar:letter-linear"
-                      />
+                      <Icon className="mr-2 h-5 w-5" icon="solar:letter-linear" />
                       Get in Touch
                     </Link>
                   </Button>
@@ -55,9 +52,7 @@ export default function Home() {
             {/* Selected Work */}
             <section id="work" className="py-20">
               <div className="container">
-                <h2 className="text-3xl font-bold mb-12 teal-gradient">
-                  Professional Work
-                </h2>
+                <h2 className="text-3xl font-bold mb-12 teal-gradient">Professional Work</h2>
                 <div className="space-y-8">
                   <ProjectCard
                     title="Digital Greeting Card Platform"
@@ -72,13 +67,7 @@ export default function Home() {
                     description="Completely rebuilt a web-based greeting card rich text editor using TipTap and ProseMirror, significantly boosting performance and reducing re-renders for a smoother user experience."
                     role="Front-End Engineer"
                     year="2024-2025"
-                    tags={[
-                      "React",
-                      "TypeScript",
-                      "TipTap",
-                      "ProseMirror",
-                      "CSS",
-                    ]}
+                    tags={["React", "TypeScript", "TipTap", "ProseMirror", "CSS"]}
                     link="#"
                   />
                   <ProjectCard
@@ -86,13 +75,7 @@ export default function Home() {
                     description="Led the migration of a legacy custom ordering system to the Saleor e-commerce platform, enhancing order management capabilities and improving the customer purchasing experience."
                     role="Full Stack Engineer"
                     year="2023-2025"
-                    tags={[
-                      "React",
-                      "Python",
-                      "GraphQL",
-                      "Saleor",
-                      "PostgreSQL",
-                    ]}
+                    tags={["React", "Python", "GraphQL", "Saleor", "PostgreSQL"]}
                     link="#"
                   />
                   <ProjectCard
@@ -117,10 +100,7 @@ export default function Home() {
                       rel="noopener noreferrer"
                       className="flex items-center"
                     >
-                      <Icon
-                        icon="octicon:mark-github-24"
-                        className="mr-2 h-6 w-6"
-                      />
+                      <Icon icon="octicon:mark-github-24" className="mr-2 h-6 w-6" />
                       View GitHub Profile
                     </a>
                   </Button>
@@ -133,34 +113,27 @@ export default function Home() {
               <div className="container">
                 <div className="grid grid-cols-1 gap-12 items-start">
                   <div className="md:col-span-2 space-y-6">
-                    <h2 className="text-3xl font-bold mb-6 teal-gradient">
-                      About Me
-                    </h2>
+                    <h2 className="text-3xl font-bold mb-6 teal-gradient">About Me</h2>
                     <div className="prose dark:prose-invert">
                       <p>
-                        I&apos;m a passionate Full Stack Engineer with 5 years
-                        of experience specializing in web application
-                        development. Currently working at SendOutCards, I enjoy
-                        solving complex problems and creating intuitive user
-                        experiences. My expertise spans across front-end and
-                        back-end technologies, with a particular focus on React
-                        ecosystems and modern JavaScript frameworks.
+                        I&apos;m a passionate Full Stack Engineer with 5 years of experience
+                        specializing in web application development. Currently working at
+                        SendOutCards, I enjoy solving complex problems and creating intuitive user
+                        experiences. My expertise spans across front-end and back-end technologies,
+                        with a particular focus on React ecosystems and modern JavaScript
+                        frameworks.
                       </p>
 
                       <p>
-                        While I have several personal projects in development,
-                        my professional work has focused on transforming
-                        e-commerce experiences and rebuilding critical
-                        user-facing applications. I&apos;m constantly learning
-                        and expanding my skill set to stay at the forefront of
-                        web technology.
+                        While I have several personal projects in development, my professional work
+                        has focused on transforming e-commerce experiences and rebuilding critical
+                        user-facing applications. I&apos;m constantly learning and expanding my
+                        skill set to stay at the forefront of web technology.
                       </p>
                     </div>
                     <div className="space-y-8 pt-6">
                       <div>
-                        <h3 className="text-xl font-semibold mb-4 text-primary">
-                          Tech Stack
-                        </h3>
+                        <h3 className="text-xl font-semibold mb-4 text-primary">Tech Stack</h3>
                         <div className="flex flex-wrap gap-2">
                           {[
                             "React",
@@ -192,5 +165,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  );
+  )
 }

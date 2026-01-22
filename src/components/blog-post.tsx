@@ -1,11 +1,11 @@
-import { Post } from "@/lib/api";
-import { Icon } from "@iconify/react";
-import Link from "next/link";
+import { Post } from "@/lib/api"
+import { Icon } from "@iconify/react"
+import Link from "next/link"
 
 export function BlogPost({ title, excerpt, date, slug, githubRepo }: Post) {
-  console.log("BLOG POST GH", githubRepo);
+  console.log("BLOG POST GH", githubRepo)
   function truncate(str: string) {
-    return `${str.substr(0, 150)}...`;
+    return `${str.substr(0, 150)}...`
   }
   return (
     <div className="p-6 rounded-lg border-teal border-2 border-solid bg-background/80 backdrop-filter backdrop-blur-sm">
@@ -30,5 +30,5 @@ export function BlogPost({ title, excerpt, date, slug, githubRepo }: Post) {
         )}
       </div>
     </div>
-  );
+  )
 }

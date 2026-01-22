@@ -1,22 +1,15 @@
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react"
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  role: string;
-  year: string;
-  tags: string[];
-  link: string;
+  title: string
+  description: string
+  role: string
+  year: string
+  tags: string[]
+  link: string
 }
 
-export function ProjectCard({
-  title,
-  description,
-  role,
-  year,
-  tags,
-  link,
-}: ProjectCardProps) {
+export function ProjectCard({ title, description, role, year, tags, link }: ProjectCardProps) {
   return (
     <div className="bg-background border border-border rounded-lg p-6 hover:shadow-md transition-shadow">
       <h3 className="text-2xl font-bold mb-2">{title}</h3>
@@ -38,9 +31,8 @@ export function ProjectCard({
         rel="noopener noreferrer"
         className="inline-flex items-center text-sm font-medium text-primary hover:underline"
       >
-        View Project{" "}
-        <Icon icon="solar:square-top-down-linear" className="ml-1 h-3 w-3" />
+        View Project <Icon icon="solar:square-top-down-linear" className="ml-1 h-3 w-3" />
       </a>
     </div>
-  );
+  )
 }

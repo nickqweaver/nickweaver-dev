@@ -1,37 +1,37 @@
-import { getPost } from "@/lib/api";
-import { remark } from "remark";
-import rehypePrism from "rehype-prism-plus";
-import rehypeStringify from "rehype-stringify";
-import remarkRehype from "remark-rehype";
-import remarkGfm from "remark-gfm";
+import { getPost } from "@/lib/api"
+import { remark } from "remark"
+import rehypePrism from "rehype-prism-plus"
+import rehypeStringify from "rehype-stringify"
+import remarkRehype from "remark-rehype"
+import remarkGfm from "remark-gfm"
 
-import "prismjs/themes/prism-tomorrow.css";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import "prismjs/themes/prism-tomorrow.css"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Icon } from "@iconify/react/dist/iconify.js"
 
 export default async function Post(props: { params: { slug: string } }) {
-  const post = getPost(props.params.slug);
+  const post = getPost(props.params.slug)
 
-  const { author, date, readingTime } = post;
+  const { author, date, readingTime } = post
 
   const result = await remark()
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypePrism, { ignoreMissing: true })
     .use(rehypeStringify)
-    .process(post.content);
+    .process(post.content)
 
   function formatDate(isoString: string) {
-    const date = new Date(isoString);
+    const date = new Date(isoString)
 
     // Get month, day, and year
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Add 1 because months are 0-indexed
-    const day = String(date.getDate()).padStart(2, "0");
-    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0") // Add 1 because months are 0-indexed
+    const day = String(date.getDate()).padStart(2, "0")
+    const year = date.getFullYear()
 
     // Format as MM/DD/YYYY
-    const formattedDate = `${month}/${day}/${year}`;
-    return formattedDate;
+    const formattedDate = `${month}/${day}/${year}`
+    return formattedDate
   }
   return (
     <article className="w-full px-4 my-24 mx-auto prose prose-sm md:prose-lg xl:prose-xl dark:prose-invert">
@@ -67,10 +67,7 @@ export default async function Post(props: { params: { slug: string } }) {
         </div>
         <div className="flex flex-col items-end md:flex-row md:items-center space-x-4 text-sm text-muted-foreground">
           <div className="flex items-center">
-            <Icon
-              icon="solar:calendar-minimalistic-linear"
-              className="mr-1 h-4 w-4"
-            />
+            <Icon icon="solar:calendar-minimalistic-linear" className="mr-1 h-4 w-4" />
             <span>{formatDate(date)}</span>
           </div>
           <div className="flex items-center">
@@ -81,5 +78,5 @@ export default async function Post(props: { params: { slug: string } }) {
       </div>
       <div dangerouslySetInnerHTML={{ __html: result.toString() }} />
     </article>
-  );
+  )
 }
