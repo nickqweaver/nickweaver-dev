@@ -61,6 +61,63 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      typography: ({ theme }: { theme: (path: string) => string[] | string }) => {
+        const sans = (theme("fontFamily.sans") as string[]).join(", ")
+        const mono = (theme("fontFamily.mono") as string[]).join(", ")
+        const proseColors = {
+          "--tw-prose-body": "hsl(var(--foreground))",
+          "--tw-prose-headings": "hsl(var(--foreground))",
+          "--tw-prose-lead": "hsl(var(--muted-foreground))",
+          "--tw-prose-links": "hsl(var(--primary))",
+          "--tw-prose-bold": "hsl(var(--foreground))",
+          "--tw-prose-counters": "hsl(var(--muted-foreground))",
+          "--tw-prose-bullets": "hsl(var(--muted-foreground))",
+          "--tw-prose-hr": "hsl(var(--border))",
+          "--tw-prose-quotes": "hsl(var(--foreground))",
+          "--tw-prose-quote-borders": "hsl(var(--border))",
+          "--tw-prose-captions": "hsl(var(--muted-foreground))",
+          "--tw-prose-code": "hsl(var(--foreground))",
+          "--tw-prose-pre-code": "hsl(var(--foreground))",
+          "--tw-prose-pre-bg": "hsl(var(--secondary))",
+          "--tw-prose-th-borders": "hsl(var(--border))",
+          "--tw-prose-td-borders": "hsl(var(--border))",
+        }
+
+        return {
+          DEFAULT: {
+            css: {
+              ...proseColors,
+              fontFamily: sans,
+              lineHeight: "1.8",
+              h1: { letterSpacing: "-0.02em" },
+              h2: { letterSpacing: "-0.02em" },
+              h3: { letterSpacing: "-0.01em" },
+              a: { textDecoration: "none", fontWeight: "500" },
+              "a:hover": { textDecoration: "underline" },
+              code: { fontFamily: mono, fontWeight: "500" },
+              pre: {
+                fontFamily: mono,
+                borderRadius: theme("borderRadius.lg"),
+                border: "1px solid hsl(var(--border))",
+              },
+            },
+          },
+          invert: {
+            css: {
+              ...proseColors,
+              fontFamily: sans,
+              a: { textDecoration: "none", fontWeight: "500" },
+              "a:hover": { textDecoration: "underline" },
+              code: { fontFamily: mono, fontWeight: "500" },
+              pre: {
+                fontFamily: mono,
+                borderRadius: theme("borderRadius.lg"),
+                border: "1px solid hsl(var(--border))",
+              },
+            },
+          },
+        }
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
