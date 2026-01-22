@@ -7,7 +7,6 @@ import remarkRehype from "remark-rehype"
 import remarkGfm from "remark-gfm"
 import { notFound } from "next/navigation"
 
-import "prismjs/themes/prism-tomorrow.css"
 
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug)

@@ -150,3 +150,163 @@
     user-select: none;
   }
 }
+
+/* Dracula Code Syntax Highlighting */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #f8f8f2;
+  background: none;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+pre[class*="language-"] {
+  padding: 1.25em;
+  margin: 1em 0;
+  overflow: auto;
+  background: #000000;
+  border: 1px solid hsl(var(--border));
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: 0.2em 0.4em;
+  background: hsl(var(--card));
+  border-radius: 0;
+}
+
+/* Inline code */
+.prose code:not(pre code) {
+  color: hsl(var(--dr-cyan));
+  background: hsl(var(--card));
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+}
+
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
+  content: none;
+}
+
+/* Tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6272a4;
+}
+
+.token.punctuation {
+  color: #f8f8f2;
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #ff79c6;
+}
+
+.token.boolean,
+.token.number {
+  color: #bd93f9;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #50fa7b;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: #f1fa8c;
+}
+
+.token.keyword {
+  color: #ff79c6;
+}
+
+.token.regex,
+.token.important {
+  color: #ffb86c;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Line highlighting */
+.code-highlight {
+  float: left;
+  min-width: 100%;
+}
+
+.code-line {
+  display: block;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: -1em;
+  margin-right: -1em;
+}
+
+.code-line.inserted {
+  background-color: rgba(80, 250, 123, 0.15);
+}
+
+.code-line.deleted {
+  background-color: rgba(255, 85, 85, 0.15);
+}
+
+.highlight-line {
+  margin-left: -1.25em;
+  margin-right: -1.25em;
+  padding-left: 1em;
+  background-color: rgba(139, 233, 253, 0.1);
+  border-left: 0.25em solid #8be9fd;
+}
+
+/* Line numbers */
+.line-number::before {
+  display: inline-block;
+  width: 1.5em;
+  margin-right: 1em;
+  text-align: right;
+  color: #6272a4;
+  content: attr(line);
+}
