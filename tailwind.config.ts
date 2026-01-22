@@ -51,6 +51,16 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Dracula accent colors
+        dr: {
+          cyan: "hsl(var(--dr-cyan))",
+          green: "hsl(var(--dr-green))",
+          orange: "hsl(var(--dr-orange))",
+          pink: "hsl(var(--dr-pink))",
+          purple: "hsl(var(--dr-purple))",
+          red: "hsl(var(--dr-red))",
+          yellow: "hsl(var(--dr-yellow))",
+        },
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "ui-sans-serif", "system-ui", "sans-serif"],

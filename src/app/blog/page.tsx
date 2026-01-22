@@ -1,39 +1,57 @@
 import Link from "next/link"
-import { BlogPost } from "@/components/blog-post"
-import { Button } from "@/components/ui/button"
 import { getAllPosts } from "@/lib/api"
 
 export default function BlogPage() {
   const posts = getAllPosts()
-  const postCount = String(posts.length).padStart(2, "0")
 
   return (
-    <main className="container pb-20 pt-28">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
-        <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
-          <span>Logbook</span>
-          <span className="text-foreground">Writing</span>
+    <main className="container py-12 md:py-16">
+      <div className="mb-8">
+        <div className="mb-6 text-muted-foreground">
+          <span className="text-dr-green">❯</span> ls posts/ --all
         </div>
-        <Button asChild size="sm" variant="outline">
-          <Link href="/">Back home</Link>
-        </Button>
-      </div>
-      <div className="mt-8 max-w-2xl space-y-4">
-        <h1 className="text-3xl font-semibold md:text-5xl">Engineering notes</h1>
-        <p className="text-muted-foreground">
-          Notes on product work, performance, and design decisions.
+        <h1 className="text-2xl md:text-3xl text-foreground mb-4">Writing</h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Notes on engineering decisions, performance, and how things work.
         </p>
       </div>
-      <div className="mt-8 rounded-xl border border-border bg-card/20">
-        <div className="flex items-center justify-between border-b border-border/60 px-5 py-3 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
-          <span>entries</span>
-          <span>count: {postCount}</span>
-        </div>
-        <div className="grid gap-4 p-5 md:grid-cols-2">
-          {posts.map((post) => (
-            <BlogPost key={post.slug} {...post} />
-          ))}
-        </div>
+
+      <div className="space-y-4">
+        {posts.map((post) => {
+          const date = new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+          return (
+            <div
+              key={post.slug}
+              className="border-l-2 border-border pl-4 hover:border-primary transition-colors"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                <span className="text-muted-foreground text-sm shrink-0 w-28">{date}</span>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  {post.title}
+                </Link>
+              </div>
+              <p className="text-muted-foreground text-sm mt-1 sm:ml-32 line-clamp-2">
+                {post.excerpt}
+              </p>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="mt-8">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-primary transition-colors"
+        >
+          ← back home
+        </Link>
       </div>
     </main>
   )

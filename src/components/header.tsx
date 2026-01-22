@@ -1,71 +1,67 @@
 "use client"
 import Link from "next/link"
+import { useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Icon } from "@iconify/react"
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
 
 const links = [
-  { href: "/", title: "Home" },
-  { href: "/#experience", title: "Experience" },
-  { href: "/#projects", title: "Projects" },
-  { href: "/#writing", title: "Writing" },
-  { href: "/#links", title: "Links" },
+  { href: "/#experience", label: "experience" },
+  { href: "/#projects", label: "projects" },
+  { href: "/blog", label: "writing" },
 ]
 
 export function Header() {
-  const link =
-    "text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="flex items-center gap-3 text-sm font-mono uppercase tracking-[0.3em]"
-        >
-          <Icon icon="lucide:terminal" className="h-5 w-5 text-primary" />
-          <span>Nick Weaver</span>
-        </Link>
-        <nav className="flex items-center gap-4 md:gap-6">
-          <ul className="md:hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Icon className="h-[1.2rem] w-[1.2rem]" icon="lucide:menu" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {links.map((item) => (
-                  <DropdownMenuItem key={item.title}>
-                    <Link href={item.href} className={link}>
-                      {item.title}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </ul>
-          <ul className="hidden items-center gap-6 md:flex">
-            {links.map((item) => (
-              <li key={item.title}>
-                <Link href={item.href} className={link}>
-                  {item.title}
-                </Link>
-              </li>
+    <header className="sticky top-0 z-40 border-b border-border bg-background">
+      <div className="container">
+        <div className="flex h-14 items-center justify-between">
+          <Link href="/" className="text-foreground hover:text-primary transition-colors">
+            ~/nick.weaver
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
             ))}
-          </ul>
-          <span className="hidden items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground md:flex">
-            <span className="h-2 w-2 rounded-full bg-primary" />
-            Online
-          </span>
-          <ThemeToggle />
-        </nav>
+            <span className="text-border">│</span>
+            <ThemeToggle />
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="text-muted-foreground hover:text-primary md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? "[close]" : "[menu]"}
+          </button>
+        </div>
+
+        {/* Mobile nav */}
+        {menuOpen && (
+          <nav className="flex flex-col gap-2 border-t border-border py-4 text-sm md:hidden">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-2">
+              <ThemeToggle />
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   )
