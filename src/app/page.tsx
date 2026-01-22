@@ -1,11 +1,89 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ProjectCard } from "@/components/project-card"
-import { ContactSection } from "@/components/contact-section"
-import { Icon } from "@iconify/react"
 import Script from "next/script"
+import { Icon } from "@iconify/react"
+import { BlogPost } from "@/components/blog-post"
+import { ProjectCard } from "@/components/project-card"
+import { Button } from "@/components/ui/button"
+import { getAllPosts } from "@/lib/api"
+
+const focusAreas = [
+  {
+    label: "Systems design",
+    title: "Reliable architecture",
+    description: "Designing durable, understandable distributed systems and interfaces.",
+  },
+  {
+    label: "Debugging",
+    title: "Failure analysis",
+    description: "Tracing production issues with clear observability and repeatable runbooks.",
+  },
+  {
+    label: "Execution",
+    title: "Queues + workers",
+    description: "Job pipelines, worker pools, backpressure, and graceful degradation.",
+  },
+  {
+    label: "Protocols",
+    title: "HTTP + TCP",
+    description: "Low-level networking, request lifecycles, and performance trade-offs.",
+  },
+]
+
+const projects = [
+  {
+    title: "Work Queue",
+    summary: "A modular job queue with durability, retries, and visibility into flow control.",
+    focus: "Distributed runtime",
+    status: "Planned",
+    tags: ["Queues", "Workers", "Postgres"],
+  },
+  {
+    title: "Thread Pool",
+    summary: "A lightweight worker pool with scheduling, instrumentation, and backpressure.",
+    focus: "Concurrency",
+    status: "Planned",
+    tags: ["Threads", "Scheduling", "Metrics"],
+  },
+  {
+    title: "HTTP Server",
+    summary: "A from-scratch HTTP server focused on traceability and deterministic behavior.",
+    focus: "Networking",
+    status: "Planned",
+    tags: ["HTTP", "TCP", "Observability"],
+  },
+  {
+    title: "Distributed Debugger",
+    summary: "A toolkit for reproducing, tracing, and explaining system-level failures.",
+    focus: "Diagnostics",
+    status: "Planned",
+    tags: ["Tracing", "Failure modes", "Runbooks"],
+  },
+]
+
+const links = [
+  {
+    label: "GitHub",
+    href: "https://github.com/nickqweaver",
+    description: "Systems experiments, prototypes, and proof-of-concepts.",
+    icon: "octicon:mark-github-24",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/nicholas-q-weaver/",
+    description: "Work history, experience notes, and collaborations.",
+    icon: "simple-icons:linkedin",
+  },
+  {
+    label: "X",
+    href: "https://twitter.com/TheSWEaver",
+    description: "Short updates and ongoing systems build logs.",
+    icon: "simple-icons:x",
+  },
+]
 
 export default function Home() {
+  const posts = getAllPosts().slice(0, 3)
+
   return (
     <>
       <Script
@@ -13,157 +91,159 @@ export default function Home() {
         data-domain="nickweaver.dev"
         src="https://plausible-analytics-ce-production-0932.up.railway.app/js/script.outbound-links.tagged-events.js"
       />
-      <div className="relative min-h-screen bg-background text-foreground">
-        <div className="relative z-10">
-          <main>
-            {/* Hero */}
-            <section className="container pt-32 pb-20 md:pt-48 md:pb-32">
-              <div className="max-w-3xl space-y-6">
-                <h1 className="text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl teal-gradient animate-float">
-                  Crafting Digital Experiences
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-xl">
-                  Full Stack Engineer with 5 years of experience building robust web applications
-                  and transforming user experiences.
-                </p>
-                <div className="flex-col sm:flex-row flex gap-4 pt-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90"
-                  >
-                    <Link href="#work">Explore Projects</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    <Link href="#contact" className="flex items-center">
-                      <Icon className="mr-2 h-5 w-5" icon="solar:letter-linear" />
-                      Get in Touch
-                    </Link>
-                  </Button>
-                </div>
+      <main className="relative">
+        <section className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 bg-terminal-grid opacity-40" />
+          <div className="container relative pt-28 pb-20 md:pt-32">
+            <div className="max-w-3xl space-y-6">
+              <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                Terminal Operator
+              </p>
+              <h1 className="text-4xl font-semibold leading-tight md:text-6xl">
+                I am a systems-oriented SWE focused on designing and debugging reliable,
+                understandable distributed systems.
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                After years of framework hopping, I&apos;m narrowing my craft toward systems design
+                and lower-level engineering: job and worker queues, thread pools, HTTP servers, TCP,
+                and networking fundamentals.
+              </p>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg">
+                  <Link href="#projects">View projects</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link href="#writing">Read writing</Link>
+                </Button>
               </div>
-            </section>
-
-            {/* Selected Work */}
-            <section id="work" className="py-20">
-              <div className="container">
-                <h2 className="text-3xl font-bold mb-12 teal-gradient">Professional Work</h2>
-                <div className="space-y-8">
-                  <ProjectCard
-                    title="Digital Greeting Card Platform"
-                    description="Developing a digital card system allowing users to create, customize, and send virtual greeting cards, expanding the company's product offerings beyond physical cards."
-                    role="Full Stack Engineer"
-                    year="2024-Present"
-                    tags={["React", "Node.js", "GraphQL", "Django", "Python"]}
-                    link="#"
-                  />
-                  <ProjectCard
-                    title="TipTap Card Editor Rebuild"
-                    description="Completely rebuilt a web-based greeting card rich text editor using TipTap and ProseMirror, significantly boosting performance and reducing re-renders for a smoother user experience."
-                    role="Front-End Engineer"
-                    year="2024-2025"
-                    tags={["React", "TypeScript", "TipTap", "ProseMirror", "CSS"]}
-                    link="#"
-                  />
-                  <ProjectCard
-                    title="Saleor E-Commerce Integration"
-                    description="Led the migration of a legacy custom ordering system to the Saleor e-commerce platform, enhancing order management capabilities and improving the customer purchasing experience."
-                    role="Full Stack Engineer"
-                    year="2023-2025"
-                    tags={["React", "Python", "GraphQL", "Saleor", "PostgreSQL"]}
-                    link="#"
-                  />
-                  <ProjectCard
-                    title="Tiny LSM"
-                    description="A toy LSM (Log Structured Merge Tree). I learned about LSM trees being the backbone for NoSQL databases so decided to build a very simple basic version of this"
-                    role="Full Stack Engineer"
-                    year="2025"
-                    tags={["Python"]}
-                    link="https://github.com/nickqweaver/tiny-lsm"
-                  />
-                </div>
-                <div className="mt-16 text-center">
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="hover:bg-secondary hover:text-secondary-foreground"
-                  >
-                    <a
-                      href="https://github.com/nickqweaver"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center"
+              <div className="flex flex-wrap gap-3 text-xs font-mono uppercase text-muted-foreground">
+                {["Systems design", "Distributed debugging", "Networking", "Reliability"].map(
+                  (item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border/60 bg-background/60 px-3 py-1"
                     >
-                      <Icon icon="octicon:mark-github-24" className="mr-2 h-6 w-6" />
-                      View GitHub Profile
-                    </a>
-                  </Button>
-                </div>
+                      {item}
+                    </span>
+                  ),
+                )}
               </div>
-            </section>
+            </div>
+          </div>
+        </section>
 
-            {/* About */}
-            <section id="about" className="py-20 bg-secondary/30">
-              <div className="container">
-                <div className="grid grid-cols-1 gap-12 items-start">
-                  <div className="md:col-span-2 space-y-6">
-                    <h2 className="text-3xl font-bold mb-6 teal-gradient">About Me</h2>
-                    <div className="prose dark:prose-invert">
-                      <p>
-                        I&apos;m a passionate Full Stack Engineer with 5 years of experience
-                        specializing in web application development. Currently working at
-                        SendOutCards, I enjoy solving complex problems and creating intuitive user
-                        experiences. My expertise spans across front-end and back-end technologies,
-                        with a particular focus on React ecosystems and modern JavaScript
-                        frameworks.
-                      </p>
-
-                      <p>
-                        While I have several personal projects in development, my professional work
-                        has focused on transforming e-commerce experiences and rebuilding critical
-                        user-facing applications. I&apos;m constantly learning and expanding my
-                        skill set to stay at the forefront of web technology.
-                      </p>
-                    </div>
-                    <div className="space-y-8 pt-6">
-                      <div>
-                        <h3 className="text-xl font-semibold mb-4 text-primary">Tech Stack</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {[
-                            "React",
-                            "Node.js",
-                            "Python",
-                            "GraphQL",
-                            "TypeScript",
-                            "AWS",
-                            "Docker",
-                            "PostgreSQL",
-                            "MongoDB",
-                            "Redis",
-                          ].map((tech) => (
-                            <span key={tech} className="skill-badge">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+        <section id="focus" className="scroll-mt-24 border-t border-border bg-background">
+          <div className="container py-16">
+            <div className="grid gap-10 md:grid-cols-[1fr,2fr]">
+              <div className="space-y-3">
+                <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                  Focus
+                </p>
+                <h2 className="text-2xl font-semibold md:text-3xl">What I build now</h2>
+                <p className="text-sm text-muted-foreground">
+                  Systems work that stays understandable under pressure.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {focusAreas.map((area) => (
+                  <div key={area.title} className="rounded-lg border border-border bg-card/40 p-4">
+                    <p className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                      {area.label}
+                    </p>
+                    <h3 className="mt-3 text-lg font-semibold">{area.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{area.description}</p>
                   </div>
-                </div>
+                ))}
               </div>
-            </section>
+            </div>
+          </div>
+        </section>
 
-            {/* Contact */}
-            <ContactSection />
-          </main>
-        </div>
-      </div>
+        <section id="projects" className="scroll-mt-24 border-t border-border bg-background">
+          <div className="container py-16">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div className="space-y-3">
+                <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                  Projects
+                </p>
+                <h2 className="text-2xl font-semibold md:text-3xl">Current build queue</h2>
+                <p className="max-w-xl text-sm text-muted-foreground">
+                  Placeholders for the systems work I&apos;m moving toward. Links coming soon.
+                </p>
+              </div>
+              <Button asChild variant="outline">
+                <a href="https://github.com/nickqweaver" target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
+              </Button>
+            </div>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {projects.map((project) => (
+                <ProjectCard key={project.title} {...project} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="writing" className="scroll-mt-24 border-t border-border bg-background">
+          <div className="container py-16">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div className="space-y-3">
+                <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                  Writing
+                </p>
+                <h2 className="text-2xl font-semibold md:text-3xl">Field notes</h2>
+                <p className="max-w-xl text-sm text-muted-foreground">
+                  Deep dives and debugging notes from the distributed systems journey.
+                </p>
+              </div>
+              <Button asChild variant="outline">
+                <Link href="/blog">All posts</Link>
+              </Button>
+            </div>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {posts.map((post) => (
+                <BlogPost key={post.slug} {...post} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="links" className="scroll-mt-24 border-t border-border bg-background">
+          <div className="container py-16">
+            <div className="space-y-3">
+              <p className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+                Links
+              </p>
+              <h2 className="text-2xl font-semibold md:text-3xl">Find me online</h2>
+              <p className="text-sm text-muted-foreground">
+                Drop-in points for the systems work and long-form posts.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-lg border border-border bg-card/40 p-5 transition hover:border-primary/40"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
+                      {link.label}
+                    </span>
+                    <Icon icon={link.icon} className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <p className="mt-3 text-sm text-muted-foreground group-hover:text-foreground">
+                    {link.description}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   )
 }
