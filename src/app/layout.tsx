@@ -57,7 +57,7 @@ export default function RootLayout({
             <footer className="border-t border-border bg-background">
               <div className="container flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
                 <div className="text-sm text-muted-foreground">
-                  © {new Date().getFullYear()} Nick Weaver. Systems-oriented SWE.
+                  © {new Date().getFullYear()} Nick Weaver
                 </div>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   {socialLinks.map((link) => (
