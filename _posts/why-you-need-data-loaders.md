@@ -155,16 +155,16 @@ Each DataLoader instance requires a batch loading function that serves as its fo
 - Maintain the same order as the input keys and its coresponding result
 
 ```javascript
-import DataLoader from "dataloader";
+import DataLoader from "dataloader"
 
 const productCategoryLoader = new DataLoader(async (ids) => {
   const products = await db.products.findMany({
     where: { categoryId: { in: ids } },
-  });
+  })
 
   // Must preserve order of input ids
-  return orderMany(ids, products);
-});
+  return orderMany(ids, products)
+})
 ```
 
 ### Request Coalescing
@@ -193,9 +193,9 @@ For example, if multiple products reference the same manufacturer in the same re
 
 ```javascript
 // Only triggers one database query even if called multiple times
-await manufacturerLoader.load(1); // DB query
-await manufacturerLoader.load(1); // Uses cache
-await manufacturerLoader.load(1); // Uses cache
+await manufacturerLoader.load(1) // DB query
+await manufacturerLoader.load(1) // Uses cache
+await manufacturerLoader.load(1) // Uses cache
 ```
 
 ### Batch Scheduling
@@ -261,7 +261,7 @@ context: (req, res) => ({
     productsLoader: new DataLoader(batchProductsById),
     manufacturersLoader: new DataLoader(batchManufacturersById),
   },
-});
+})
 ```
 
 However, this approach quickly becomes inefficient. As your application grows, the additional memory required for all these dataloader instances can impact performance. Large applications may have hundreds or even thousands of dataloaders in a single store.
@@ -273,23 +273,23 @@ To mitigate this issue, we can implement lazy loading for dataloaders:
 export const store = {
   productsLoader: () => new DataLoader(batchProductsById),
   manufacturersLoader: () => new DataLoader(batchManufacturersById),
-};
+}
 
 // index.ts
 export function createDataLoaders() {
-  const loaders = new Map<string, DataLoader<any, any>>();
+  const loaders = new Map<string, DataLoader<any, any>>()
 
   return {
     get: function <K, V>(key: string): DataLoader<K, V> {
       if (!loaders.has(key)) {
         if (!store[key]) {
-          throw new Error(`DataLoader with key ${key} not found in store`);
+          throw new Error(`DataLoader with key ${key} not found in store`)
         }
-        loaders.set(key, store[key]());
+        loaders.set(key, store[key]())
       }
-      return loaders.get(key) as DataLoader<K, V>;
+      return loaders.get(key) as DataLoader<K, V>
     },
-  };
+  }
 }
 ```
 
@@ -300,7 +300,7 @@ const server = new ApolloServer({
   context: (req, res) => ({
     dataloaders: createDataLoaders(),
   }),
-});
+})
 ```
 
 In your resolvers, you would access the dataloaders like this:
@@ -309,12 +309,10 @@ In your resolvers, you would access the dataloaders like this:
 const resolvers = {
   Product: {
     manufacturer: async (product, _, context) => {
-      return context.dataloaders
-        .get("manufacturersLoader")
-        .load(product.manufacturerId);
+      return context.dataloaders.get("manufacturersLoader").load(product.manufacturerId)
     },
   },
-};
+}
 ```
 
 ### Key Benefits
