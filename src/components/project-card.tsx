@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 
 interface ProjectCardProps {
+  id: string
   title: string
   summary: string
   focus: string
@@ -9,14 +10,17 @@ interface ProjectCardProps {
   link?: string
 }
 
-export function ProjectCard({ title, summary, focus, status, tags, link }: ProjectCardProps) {
+export function ProjectCard({ id, title, summary, focus, status, tags, link }: ProjectCardProps) {
   return (
-    <div className="group rounded-lg border border-border bg-card/40 p-6 transition hover:border-primary/40">
-      <div className="flex items-center justify-between gap-4 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
-        <span>{focus}</span>
-        <span>{status}</span>
+    <div className="rounded-lg border border-border bg-card/40 p-5 transition hover:border-primary/40">
+      <div className="flex items-center justify-between text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
+        <span>{id}</span>
+        <span className="text-primary">{status}</span>
       </div>
-      <h3 className="mt-3 text-xl font-semibold">{title}</h3>
+      <p className="mt-3 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
+        {focus}
+      </p>
+      <h3 className="mt-3 text-lg font-semibold">{title}</h3>
       <p className="mt-3 text-sm text-muted-foreground">{summary}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {tags.map((tag) => (

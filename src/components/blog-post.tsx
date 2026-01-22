@@ -4,22 +4,26 @@ import Link from "next/link"
 
 export function BlogPost({ title, excerpt, date, slug, githubRepo }: Post) {
   const truncated = excerpt.length > 160 ? `${excerpt.slice(0, 160)}...` : excerpt
+  const dateLabel = new Date(date).toLocaleDateString()
 
   return (
     <article className="rounded-lg border border-border bg-card/40 p-6">
-      <div className="flex items-center justify-between text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
-        <span>{new Date(date).toLocaleDateString()}</span>
-        {githubRepo ? (
-          <a
-            href={githubRepo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 hover:text-foreground"
-          >
-            <Icon icon="octicon:mark-github-24" className="h-4 w-4" />
-            Repo
-          </a>
-        ) : null}
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
+        <span>Log entry</span>
+        <div className="flex items-center gap-4">
+          <span>{dateLabel}</span>
+          {githubRepo ? (
+            <a
+              href={githubRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 hover:text-foreground"
+            >
+              <Icon icon="octicon:mark-github-24" className="h-4 w-4" />
+              Repo
+            </a>
+          ) : null}
+        </div>
       </div>
       <h3 className="mt-3 text-xl font-semibold">
         <Link href={`/blog/${slug}`} className="hover:text-primary">

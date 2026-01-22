@@ -18,6 +18,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
   const { author, date, readingTime } = post
   const avatarUrl = author.profileImageUrl ?? DEFAULT_AVATAR_URL
+  const entryId = post.slug.toUpperCase()
 
   const result = await remark()
     .use(remarkGfm)
@@ -38,12 +39,18 @@ export default async function Post({ params }: { params: { slug: string } }) {
   return (
     <article className="container pb-20 pt-28">
       <div className="max-w-3xl">
-        <Link
-          href="/blog"
-          className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground"
-        >
-          Back to writing
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
+          <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
+            <span>Log entry</span>
+            <span className="text-foreground">{entryId}</span>
+          </div>
+          <Link
+            href="/blog"
+            className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground"
+          >
+            Back to writing
+          </Link>
+        </div>
         <h1 className="mt-6 text-3xl font-semibold md:text-5xl">{post.title}</h1>
         <p className="mt-4 text-muted-foreground">{post.excerpt}</p>
         <div className="mt-6 flex flex-wrap items-center gap-6 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">

@@ -60,6 +60,10 @@ export function Header() {
               </li>
             ))}
           </ul>
+          <span className="hidden items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground md:flex">
+            <span className="h-2 w-2 rounded-full bg-primary" />
+            Online
+          </span>
           <ThemeToggle />
         </nav>
       </div>
