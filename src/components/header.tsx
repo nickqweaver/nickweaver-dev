@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 
 const links = [
   { href: "/", title: "Home" },
-  { href: "/#focus", title: "Focus" },
+  { href: "/#experience", title: "Experience" },
   { href: "/#projects", title: "Projects" },
   { href: "/#writing", title: "Writing" },
   { href: "/#links", title: "Links" },

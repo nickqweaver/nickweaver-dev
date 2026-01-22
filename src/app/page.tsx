@@ -6,26 +6,26 @@ import { ProjectCard } from "@/components/project-card"
 import { Button } from "@/components/ui/button"
 import { getAllPosts } from "@/lib/api"
 
-const focusAreas = [
+const experienceAreas = [
   {
-    label: "Systems design",
-    title: "Reliable architecture",
-    description: "Designing durable, understandable distributed systems and interfaces.",
+    label: "Platform scale",
+    title: "Async media pipelines",
+    description: "Built batch processing, caching, and on-demand transforms at scale.",
   },
   {
-    label: "Debugging",
-    title: "Failure analysis",
-    description: "Tracing production issues with clear observability and repeatable runbooks.",
+    label: "Performance UX",
+    title: "Latency-first editors",
+    description: "Rebuilt rich text tooling with aggressive caching and smoother rendering.",
   },
   {
-    label: "Execution",
-    title: "Queues + workers",
-    description: "Job pipelines, worker pools, backpressure, and graceful degradation.",
+    label: "Commerce systems",
+    title: "Checkout + risk controls",
+    description: "Shipped payment flows, fraud mitigation, and ecommerce integrations.",
   },
   {
-    label: "Protocols",
-    title: "HTTP + TCP",
-    description: "Low-level networking, request lifecycles, and performance trade-offs.",
+    label: "Tooling",
+    title: "Design systems + CI",
+    description: "Published typed UI libraries and automated release pipelines.",
   },
 ]
 
@@ -187,26 +187,26 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="focus" className="scroll-mt-24 border-t border-border bg-background">
+        <section id="experience" className="scroll-mt-24 border-t border-border bg-background">
           <div className="container py-16">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4">
               <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
                 <span>Module 01</span>
-                <span className="text-foreground">Focus</span>
+                <span className="text-foreground">Experience</span>
               </div>
               <span className="text-xs font-mono uppercase tracking-[0.3em] text-muted-foreground">
-                status: active
+                status: shipped
               </span>
             </div>
             <div className="mt-8 grid gap-10 md:grid-cols-[1fr,2fr]">
               <div className="space-y-3">
-                <h2 className="text-2xl font-semibold md:text-3xl">What I build now</h2>
+                <h2 className="text-2xl font-semibold md:text-3xl">What I&apos;ve shipped</h2>
                 <p className="text-sm text-muted-foreground">
-                  Systems work that stays understandable under pressure.
+                  Web platform work across media, commerce, performance, and tooling.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                {focusAreas.map((area) => (
+                {experienceAreas.map((area) => (
                   <div key={area.title} className="rounded-lg border border-border bg-card/40 p-4">
                     <p className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
                       {area.label}
