@@ -207,15 +207,16 @@ export default function Home() {
                 day: "numeric",
               })
               return (
-                <div key={post.slug} className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4"
+                >
                   <span className="text-muted-foreground text-sm shrink-0 w-28">{date}</span>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="text-foreground hover:text-primary transition-colors"
-                  >
+                  <span className="text-foreground group-hover:text-primary transition-colors">
                     {post.title}
-                  </Link>
-                </div>
+                  </span>
+                </Link>
               )
             })}
           </div>
