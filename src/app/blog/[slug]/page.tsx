@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm"
 import "prismjs/themes/prism-tomorrow.css"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Icon } from "@iconify/react"
+import { notFound } from "next/navigation"
 
 const DEFAULT_AVATAR_URL =
   "https://cdn.uploadslate.com/ca454007-87bd-46e7-a34f-87f40efd308a?width=56&height=56&format=webp"
@@ -16,9 +17,13 @@ const DEFAULT_AVATAR_URL =
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug)
 
-  const { author, date, readingTime } = post
+  const { author, date, readingTime, status } = post
   const avatarUrl = author.profileImageUrl ?? DEFAULT_AVATAR_URL
   const entryId = post.slug.toUpperCase()
+
+  if (status !== "active") {
+    notFound()
+  }
 
   const result = await remark()
     .use(remarkGfm)

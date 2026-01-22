@@ -13,6 +13,7 @@ export type Post = {
   slug: string
   githubRepo?: string
   readingTime: string
+  status: "active" | "draft"
 }
 
 const POSTS_DIR = path.join(process.cwd(), "_posts")
@@ -37,5 +38,5 @@ export function getPost(slug: string) {
 export function getAllPosts() {
   const slugs = getSlugs()
 
-  return slugs.map((slug) => getPost(slug))
+  return slugs.map((slug) => getPost(slug)).filter((post) => post.status === "active")
 }
