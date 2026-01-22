@@ -61,7 +61,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
             </Avatar>
             <div className="flex flex-col">
               <span className="text-sm font-medium text-foreground">{author.name}</span>
-              <span className="text-xs text-muted-foreground">Systems-oriented SWE</span>
+              <span className="text-xs text-muted-foreground">Software engineer</span>
             </div>
           </div>
           <div className="flex items-center gap-2">

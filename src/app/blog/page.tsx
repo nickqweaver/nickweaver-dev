@@ -19,9 +19,9 @@ export default function BlogPage() {
         </Button>
       </div>
       <div className="mt-8 max-w-2xl space-y-4">
-        <h1 className="text-3xl font-semibold md:text-5xl">Systems notes</h1>
+        <h1 className="text-3xl font-semibold md:text-5xl">Engineering notes</h1>
         <p className="text-muted-foreground">
-          Field notes on reliability, distributed debugging, and infrastructure design.
+          Notes on product work, performance, and design decisions.
         </p>
       </div>
       <div className="mt-8 rounded-xl border border-border bg-card/20">

@@ -30,29 +30,36 @@ const experienceAreas = [
 ]
 
 const systemMetrics = [
-  { label: "mode", value: "distributed-debugging" },
-  { label: "focus", value: "systems design" },
-  { label: "queue depth", value: "04 active" },
+  { label: "mode", value: "build + learn" },
+  { label: "focus", value: "product + infra" },
+  { label: "queue", value: "04 active" },
   { label: "uptime", value: "99.99%" },
 ]
 
-const systemLog = [
-  "boot: telemetry stream attached",
-  "queue: worker pool warmed",
-  "trace: tcp handshake replay ready",
-]
+const systemLog = ["boot: workspace synced", "log: experiments queued", "sync: notes ready"]
 
 const projects = [
   {
     id: "Q-001",
-    title: "Work Queue",
-    summary: "A modular job queue with durability, retries, and visibility into flow control.",
-    focus: "Distributed runtime",
-    status: "Planned",
-    tags: ["Queues", "Workers", "Postgres"],
+    title: "UploadSlate",
+    summary:
+      "Developer-first file uploads with CDN image transforms, metadata tracking, and multi-tenant asset management.",
+    focus: "Media platform",
+    status: "Live",
+    tags: ["Uploads", "Transforms", "Bun"],
+    link: "https://uploadslate.com",
   },
   {
     id: "Q-002",
+    title: "GraphQL DataLoader Benchmark",
+    summary: "Benchmarking app showing how DataLoaders reduce N+1 query overhead in GraphQL.",
+    focus: "Benchmarking",
+    status: "Live",
+    tags: ["GraphQL", "DataLoader", "Benchmarks"],
+    link: "https://github.com/nickqweaver/graphql-dataloader-example",
+  },
+  {
+    id: "Q-003",
     title: "Thread Pool",
     summary: "A lightweight worker pool with scheduling, instrumentation, and backpressure.",
     focus: "Concurrency",
@@ -60,20 +67,12 @@ const projects = [
     tags: ["Threads", "Scheduling", "Metrics"],
   },
   {
-    id: "Q-003",
+    id: "Q-004",
     title: "HTTP Server",
     summary: "A from-scratch HTTP server focused on traceability and deterministic behavior.",
     focus: "Networking",
     status: "Planned",
     tags: ["HTTP", "TCP", "Observability"],
-  },
-  {
-    id: "Q-004",
-    title: "Distributed Debugger",
-    summary: "A toolkit for reproducing, tracing, and explaining system-level failures.",
-    focus: "Diagnostics",
-    status: "Planned",
-    tags: ["Tracing", "Failure modes", "Runbooks"],
   },
 ]
 
@@ -124,14 +123,13 @@ export default function Home() {
                   <span>Node NW-01</span>
                 </div>
                 <h1 className="text-4xl font-semibold leading-tight md:text-6xl">
-                  Systems-first SWE
-                  <span className="block text-primary">Reliable distributed runtimes.</span>
+                  Software engineer
+                  <span className="block text-primary">Reliability + performance.</span>
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  I&apos;ve shipped scalable web platforms, performance-critical editors, and
-                  reliability tooling across modern stacks. With that breadth in place, I&apos;m now
-                  going deep on distributed systems: queues, worker pools, networking primitives,
-                  and the foundations behind reliable runtimes.
+                  I&apos;ve shipped web platforms, performance-critical editors, and internal
+                  tooling across modern stacks. With that breadth in place, I&apos;m now going
+                  deeper on the fundamentals behind resilient infrastructure and runtimes.
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Button asChild size="lg">
@@ -142,16 +140,14 @@ export default function Home() {
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-3 text-xs font-mono uppercase text-muted-foreground">
-                  {["Systems design", "Distributed debugging", "Networking", "Reliability"].map(
-                    (item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-border/60 bg-background/60 px-3 py-1"
-                      >
-                        {item}
-                      </span>
-                    ),
-                  )}
+                  {["Reliability", "Performance", "Platform", "Tooling"].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border/60 bg-background/60 px-3 py-1"
+                    >
+                      {item}
+                    </span>
+                  ))}
                 </div>
               </div>
               <div className="rounded-xl border border-border bg-card/60 p-6 backdrop-blur">
@@ -202,7 +198,7 @@ export default function Home() {
               <div className="space-y-3">
                 <h2 className="text-2xl font-semibold md:text-3xl">What I&apos;ve shipped</h2>
                 <p className="text-sm text-muted-foreground">
-                  Web platform work across media, commerce, performance, and tooling.
+                  Highlights across platform, performance, and tooling work.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -230,7 +226,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl font-semibold md:text-3xl">Current build queue</h2>
                 <p className="max-w-xl text-sm text-muted-foreground">
-                  Placeholders for the systems work I&apos;m moving toward. Links coming soon.
+                  Early-stage builds and experiments. Links coming soon.
                 </p>
               </div>
               <Button asChild variant="outline">
@@ -263,7 +259,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl font-semibold md:text-3xl">Field notes</h2>
                 <p className="max-w-xl text-sm text-muted-foreground">
-                  Deep dives and debugging notes from the distributed systems journey.
+                  Notes on engineering decisions, performance, and how things work.
                 </p>
               </div>
               <Button asChild variant="outline">
@@ -292,9 +288,7 @@ export default function Home() {
                 <span className="text-foreground">Links</span>
               </div>
               <h2 className="text-2xl font-semibold md:text-3xl">Find me online</h2>
-              <p className="text-sm text-muted-foreground">
-                Drop-in points for the systems work and long-form posts.
-              </p>
+              <p className="text-sm text-muted-foreground">Places I share work and updates.</p>
             </div>
             <div className="mt-8 rounded-xl border border-border bg-card/20">
               <div className="flex items-center justify-between border-b border-border/60 px-5 py-3 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">
