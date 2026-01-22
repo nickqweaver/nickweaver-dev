@@ -62,6 +62,15 @@ export default async function Post({ params }: { params: { slug: string } }) {
             <div className="flex flex-col">
               <span className="text-sm font-medium text-foreground">{author.name}</span>
               <span className="text-xs text-muted-foreground">Software engineer</span>
+              <a
+                href="https://twitter.com/TheSWEaver"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex items-center gap-1 text-[0.65rem] font-mono uppercase tracking-[0.18em] text-muted-foreground/70 transition-colors hover:text-muted-foreground"
+              >
+                <Icon icon="simple-icons:x" className="h-3 w-3" />
+                @TheSWEaver
+              </a>
             </div>
           </div>
           <div className="flex items-center gap-2">
