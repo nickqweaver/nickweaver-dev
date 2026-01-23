@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { VimMode } from "@/components/vim-mode"
 import { PageTransition } from "@/components/page-transition"
+import { CommandMenuProvider } from "@/components/command-menu"
 import "./globals.css"
 
 const geistMono = localFont({
@@ -39,7 +40,8 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${geistMono.variable} font-mono antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <VimMode>
+          <CommandMenuProvider>
+            <VimMode>
             <div className="flex min-h-screen flex-col bg-background text-foreground">
               <Header />
               <div className="flex-1">
@@ -80,6 +82,7 @@ export default function RootLayout({
               </footer>
             </div>
           </VimMode>
+          </CommandMenuProvider>
         </ThemeProvider>
       </body>
     </html>
