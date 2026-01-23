@@ -1,12 +1,7 @@
 import Link from "next/link"
 import { getPost } from "@/lib/api"
-import { remark } from "remark"
-import rehypePrism from "rehype-prism-plus"
-import rehypeStringify from "rehype-stringify"
-import remarkRehype from "remark-rehype"
-import remarkGfm from "remark-gfm"
+import { renderMarkdown } from "@/lib/markdown"
 import { notFound } from "next/navigation"
-
 
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug)
@@ -15,12 +10,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
     notFound()
   }
 
-  const result = await remark()
-    .use(remarkGfm)
-    .use(remarkRehype)
-    .use(rehypePrism, { ignoreMissing: true })
-    .use(rehypeStringify)
-    .process(post.content)
+  const html = await renderMarkdown(post.content)
 
   const date = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
@@ -47,7 +37,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
         <div className="divider mb-8" aria-hidden="true" />
 
         <div className="prose prose-sm max-w-none dark:prose-invert md:prose-base prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-dr-cyan prose-pre:bg-card prose-pre:border prose-pre:border-border">
-          <div dangerouslySetInnerHTML={{ __html: result.toString() }} />
+          <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
 
         <div className="divider mt-12 mb-8" aria-hidden="true" />

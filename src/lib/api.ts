@@ -40,3 +40,25 @@ export function getAllPosts() {
 
   return slugs.map((slug) => getPost(slug)).filter((post) => post.status === "active")
 }
+
+// Resume
+export type Resume = {
+  title: string
+  lastUpdated: string
+  content: string
+}
+
+const CONTENT_DIR = path.join(process.cwd(), "_content")
+
+export function getResume(): Resume {
+  const fullPath = join(CONTENT_DIR, "resume.md")
+  const contents = fs.readFileSync(fullPath, "utf8")
+
+  const { data, content } = matter(contents)
+
+  return {
+    title: data.title || "Resume",
+    lastUpdated: data.lastUpdated || "",
+    content,
+  }
+}

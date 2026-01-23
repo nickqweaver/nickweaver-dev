@@ -134,6 +134,14 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="mt-6">
+            <Link
+              href="/resume"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              → view full resume
+            </Link>
+          </div>
         </section>
 
         {/* Projects */}
