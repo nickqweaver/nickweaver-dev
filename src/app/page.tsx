@@ -4,24 +4,24 @@ import { getAllPosts } from "@/lib/api"
 
 const experience = [
   {
-    area: "platform",
-    title: "Async media pipelines",
-    desc: "Batch processing, caching, and on-demand transforms at scale.",
+    area: "optimization",
+    title: "Finding and fixing bottlenecks",
+    desc: "Profiling, caching strategies, and cutting latency where it matters.",
   },
   {
-    area: "performance",
-    title: "Latency-first editors",
-    desc: "Rich text tooling with aggressive caching and smoother rendering.",
+    area: "architecture",
+    title: "Systems that stay maintainable",
+    desc: "Designing for scale without overengineering.",
   },
   {
-    area: "commerce",
-    title: "Checkout + risk controls",
-    desc: "Payment flows, fraud mitigation, and ecommerce integrations.",
+    area: "fullstack",
+    title: "Comfortable anywhere in the stack",
+    desc: "Frontend to backend, UI to infrastructure.",
   },
   {
-    area: "tooling",
-    title: "Design systems + CI",
-    desc: "Typed UI libraries and automated release pipelines.",
+    area: "shipping",
+    title: "Getting things into production",
+    desc: "CI/CD, testing, and pragmatic tradeoffs to deliver.",
   },
 ]
 
@@ -48,6 +48,12 @@ const projects = [
     link: "https://github.com/nickqweaver/cookbook",
   },
   {
+    name: "jobqueue",
+    desc: "Persistent job queue built from scratch with timeouts, retries, and at-least-once delivery.",
+    tags: ["go", "postgres", "concurrency"],
+    status: "inprogress",
+  },
+  {
     name: "http-server",
     desc: "A from-scratch HTTP server focused on traceability and deterministic behavior.",
     tags: ["http", "tcp", "observability"],
@@ -58,6 +64,7 @@ const projects = [
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     live: "text-dr-green",
+    inprogress: "text-dr-purple",
     planned: "text-dr-yellow",
     wip: "text-dr-orange",
   }
@@ -85,8 +92,8 @@ export default function Home() {
             Software engineer who enjoys solving real engineering problems—where{" "}
             <span className="text-dr-cyan">structure</span>,{" "}
             <span className="text-dr-cyan">constraints</span>, and{" "}
-            <span className="text-dr-cyan">tradeoffs</span> have to be discovered, not followed.
-            I work across the stack and like to understand how things actually work.
+            <span className="text-dr-cyan">tradeoffs</span> have to be discovered, not followed. I
+            work across the stack and like to understand how things actually work.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a
