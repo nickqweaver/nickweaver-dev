@@ -98,13 +98,11 @@
     @apply bg-primary/30 text-foreground;
   }
 
-  /* Prevent iOS zoom on input focus */
-  @media screen and (max-width: 768px) {
-    input,
-    textarea,
-    select {
-      font-size: 16px;
-    }
+  /* Prevent iOS zoom on input focus - must be 16px minimum */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
   }
 }
 
