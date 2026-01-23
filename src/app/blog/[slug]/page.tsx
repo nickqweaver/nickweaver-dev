@@ -29,8 +29,8 @@ export default async function Post({ params }: { params: { slug: string } }) {
   })
 
   return (
-    <article className="container py-12 md:py-16">
-      <div className="max-w-3xl">
+    <article className="container py-12 md:py-16 overflow-x-hidden">
+      <div className="max-w-3xl overflow-x-hidden">
         <div className="mb-8">
           <div className="mb-6 text-muted-foreground">
             <span className="text-dr-green">❯</span> cat posts/{post.slug}.md

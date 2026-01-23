@@ -76,11 +76,13 @@
 
   html {
     font-size: 15px;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-mono;
     font-feature-settings: "ss01" 1, "ss02" 1;
+    overflow-x: hidden;
   }
 
   /* Selection colors */
@@ -119,11 +121,12 @@
 
   /* ASCII divider */
   .divider {
-    @apply text-border select-none overflow-hidden whitespace-nowrap;
+    @apply text-border select-none overflow-hidden whitespace-nowrap w-full max-w-full block;
   }
 
   .divider::before {
     content: "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────";
+    @apply block overflow-hidden;
   }
 }
 
@@ -171,9 +174,17 @@ pre[class*="language-"] {
 pre[class*="language-"] {
   padding: 1.25em;
   margin: 1em 0;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   background: #000000;
   border: 1px solid hsl(var(--border));
+  max-width: 100%;
+}
+
+/* All pre elements */
+pre {
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 :not(pre) > code[class*="language-"] {
