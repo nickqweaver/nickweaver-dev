@@ -9,6 +9,7 @@ import {
   useRef,
   type ReactNode,
 } from "react"
+import { usePathname } from "next/navigation"
 
 type Mode = "BROWSE" | "NORMAL"
 
@@ -24,7 +25,7 @@ interface VimModeContextType {
 
 const VimModeContext = createContext<VimModeContextType | null>(null)
 
-const INTERACTIVE_SELECTOR = 'a[href], button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+const INTERACTIVE_SELECTOR = 'a[href], button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"]), h1, h2, h3, h4, h5, h6'
 const MAX_ELEMENT_HEIGHT = 60 // Skip elements taller than this (e.g., card links)
 
 export function useVimMode() {
@@ -40,6 +41,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   const [focusedElement, setFocusedElement] = useState<FocusedElement | null>(null)
   const currentIndexRef = useRef(0)
   const elementsRef = useRef<HTMLElement[]>([])
+  const pathname = usePathname()
 
   const getInteractiveElements = useCallback(() => {
     const elements = Array.from(
@@ -136,8 +138,17 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   }, [updateFocusedElement])
 
   const activateFocused = useCallback(() => {
-    if (focusedElement?.element) {
-      focusedElement.element.click()
+    if (!focusedElement?.element) return
+
+    const el = focusedElement.element
+    const tagName = el.tagName.toLowerCase()
+
+    // For headings, scroll to top of viewport
+    if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+      const rect = el.getBoundingClientRect()
+      window.scrollBy({ top: rect.top - 100, behavior: "instant" })
+    } else {
+      el.click()
     }
   }, [focusedElement])
 
@@ -162,6 +173,11 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("resize", updateRect)
     }
   }, [mode])
+
+  // Exit NORMAL mode on route change
+  useEffect(() => {
+    exitNormalMode()
+  }, [pathname, exitNormalMode])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

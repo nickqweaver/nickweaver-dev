@@ -24,21 +24,23 @@ export default function BlogPage() {
             day: "numeric",
           })
           return (
-            <Link
+            <article
               key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group block border-l-2 border-border pl-4 hover:border-primary transition-colors"
+              className="group border-l-2 border-border pl-4 hover:border-primary transition-colors"
             >
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
                 <span className="text-muted-foreground text-sm shrink-0 w-28">{date}</span>
-                <span className="text-foreground group-hover:text-primary transition-colors">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
                   {post.title}
-                </span>
+                </Link>
               </div>
               <p className="text-muted-foreground text-sm mt-1 sm:ml-32 line-clamp-2">
                 {post.excerpt}
               </p>
-            </Link>
+            </article>
           )
         })}
       </div>
