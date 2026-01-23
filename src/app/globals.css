@@ -73,7 +73,7 @@
 
     /* Vim mode colors - like neovim on dark bg */
     --vim-cursor: 0 0% 60%;
-    --vim-cursorline: 0 0% 8%;
+    --vim-cursorline: 0 0% 18%;
   }
 }
 
