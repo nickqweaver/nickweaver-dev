@@ -123,6 +123,8 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="divider mb-16" aria-hidden="true" />
+
         {/* Experience */}
         <section id="experience" className="mb-16 scroll-mt-20">
           <div className="mb-6 text-muted-foreground">
@@ -148,6 +150,8 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <div className="divider mb-16" aria-hidden="true" />
 
         {/* Projects */}
         <section id="projects" className="mb-16 scroll-mt-20">
@@ -197,6 +201,8 @@ export default function Home() {
             </a>
           </div>
         </section>
+
+        <div className="divider mb-16" aria-hidden="true" />
 
         {/* Writing */}
         <section id="writing" className="scroll-mt-20">
