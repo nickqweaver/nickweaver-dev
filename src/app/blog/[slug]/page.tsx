@@ -2,6 +2,7 @@ import Link from "next/link"
 import { getPost } from "@/lib/api"
 import { renderMarkdown } from "@/lib/markdown"
 import { notFound } from "next/navigation"
+import { CodeBlockEnhancer } from "@/components/code-block-enhancer"
 
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = getPost(params.slug)
@@ -35,8 +36,10 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
         <div className="divider mb-8" aria-hidden="true" />
 
-        <div className="prose prose-sm max-w-none dark:prose-invert md:prose-base prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-dr-cyan prose-pre:bg-card prose-pre:border prose-pre:border-border">
-          <div dangerouslySetInnerHTML={{ __html: html }} />
+        <div className="prose prose-sm max-w-none dark:prose-invert md:prose-base prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-dr-cyan">
+          <CodeBlockEnhancer>
+            <div dangerouslySetInnerHTML={{ __html: html }} />
+          </CodeBlockEnhancer>
         </div>
 
         <div className="divider mt-12 mb-8" aria-hidden="true" />
