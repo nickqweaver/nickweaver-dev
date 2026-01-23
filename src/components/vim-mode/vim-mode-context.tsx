@@ -174,10 +174,56 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     }
   }, [mode])
 
-  // Exit NORMAL mode on route change
+  // Re-scan elements when DOM changes (route navigation, dynamic content)
   useEffect(() => {
-    exitNormalMode()
-  }, [pathname, exitNormalMode])
+    if (mode !== "NORMAL") return
+
+    let debounceId: number | null = null
+
+    const rescan = () => {
+      const elements = getInteractiveElements()
+      elementsRef.current = elements
+
+      if (elements.length > 0) {
+        // Try to keep similar position, or reset to first element near viewport
+        const viewportMiddle = window.innerHeight / 2
+        let closestIndex = 0
+        let closestDistance = Infinity
+
+        elements.forEach((el, i) => {
+          const rect = el.getBoundingClientRect()
+          const distance = Math.abs(rect.top - viewportMiddle)
+          if (distance < closestDistance) {
+            closestDistance = distance
+            closestIndex = i
+          }
+        })
+
+        currentIndexRef.current = closestIndex
+        updateFocusedElement(elements, closestIndex)
+      } else {
+        setFocusedElement(null)
+      }
+    }
+
+    const observer = new MutationObserver(() => {
+      if (debounceId) cancelAnimationFrame(debounceId)
+      debounceId = requestAnimationFrame(rescan)
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    })
+
+    // Initial scan for new page
+    rescan()
+
+    return () => {
+      observer.disconnect()
+      if (debounceId) cancelAnimationFrame(debounceId)
+    }
+  }, [mode, pathname, getInteractiveElements, updateFocusedElement])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
