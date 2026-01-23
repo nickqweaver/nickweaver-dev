@@ -34,6 +34,10 @@
     --dr-purple: 265 70% 55%;
     --dr-red: 0 90% 55%;
     --dr-yellow: 65 80% 45%;
+
+    /* Vim mode colors */
+    --vim-cursor: 0 0% 40%;
+    --vim-cursorline: 0 0% 90%;
   }
 
   .dark {
@@ -66,6 +70,10 @@
     --dr-purple: 265 89% 78%;
     --dr-red: 0 100% 67%;
     --dr-yellow: 65 92% 76%;
+
+    /* Vim mode colors - like neovim on dark bg */
+    --vim-cursor: 0 0% 60%;
+    --vim-cursorline: 0 0% 8%;
   }
 }
 

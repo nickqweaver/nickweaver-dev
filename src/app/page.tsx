@@ -150,45 +150,36 @@ export default function Home() {
             <span className="text-dr-green">❯</span> ls projects/
           </div>
           <div className="space-y-6">
-            {projects.map((project) => {
-              const content = (
-                <>
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="text-foreground group-hover:text-primary transition-colors">
+            {projects.map((project) => (
+              <div
+                key={project.name}
+                className="group border-l-2 border-border pl-4 hover:border-primary transition-colors"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
                       {project.name}
-                    </span>
-                    <StatusBadge status={project.status} />
-                  </div>
-                  <p className="text-muted-foreground text-sm mt-1">{project.desc}</p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="text-xs text-dr-cyan">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </>
-              )
-
-              return project.link ? (
-                <a
-                  key={project.name}
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block border-l-2 border-border pl-4 hover:border-primary transition-colors"
-                >
-                  {content}
-                </a>
-              ) : (
-                <div
-                  key={project.name}
-                  className="group border-l-2 border-border pl-4"
-                >
-                  {content}
+                    </a>
+                  ) : (
+                    <span className="text-foreground">{project.name}</span>
+                  )}
+                  <StatusBadge status={project.status} />
                 </div>
-              )
-            })}
+                <p className="text-muted-foreground text-sm mt-1">{project.desc}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="text-xs text-dr-cyan">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
           <div className="mt-6">
             <a

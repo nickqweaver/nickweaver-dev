@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
+import { VimMode } from "@/components/vim-mode"
 import "./globals.css"
 
 const geistMono = localFont({
@@ -25,10 +26,11 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${geistMono.variable} font-mono antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="flex min-h-screen flex-col bg-background text-foreground">
-            <Header />
-            <div className="flex-1">{children}</div>
-            <footer className="border-t border-border">
+          <VimMode>
+            <div className="flex min-h-screen flex-col bg-background text-foreground">
+              <Header />
+              <div className="flex-1">{children}</div>
+              <footer className="border-t border-border">
               <div className="container py-6">
                 <div className="flex flex-col gap-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
                   <span>© {new Date().getFullYear()} nick weaver</span>
@@ -61,7 +63,8 @@ export default function RootLayout({
                 </div>
               </div>
             </footer>
-          </div>
+            </div>
+          </VimMode>
         </ThemeProvider>
       </body>
     </html>

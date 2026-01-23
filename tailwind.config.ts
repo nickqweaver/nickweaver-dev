@@ -61,6 +61,11 @@ module.exports = {
           red: "hsl(var(--dr-red))",
           yellow: "hsl(var(--dr-yellow))",
         },
+        // Vim mode colors
+        vim: {
+          cursor: "hsl(var(--vim-cursor))",
+          cursorline: "hsl(var(--vim-cursorline))",
+        },
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
