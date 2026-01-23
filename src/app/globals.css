@@ -97,6 +97,15 @@
   ::selection {
     @apply bg-primary/30 text-foreground;
   }
+
+  /* Prevent iOS zoom on input focus */
+  @media screen and (max-width: 768px) {
+    input,
+    textarea,
+    select {
+      font-size: 16px;
+    }
+  }
 }
 
 @layer components {
