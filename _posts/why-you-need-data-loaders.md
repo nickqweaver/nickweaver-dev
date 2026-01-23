@@ -11,8 +11,6 @@ readingTime: "15 min"
 status: "active"
 ---
 
-# Scalable GraphQL: Why you need DataLoaders
-
 ## TL;DR
 
 DataLoaders solve the N+1 query problem in GraphQL by batching and caching database queries, reducing response times by upto 85% and allowing your API to scale efficiently with data growth. This article explains how DataLoaders work and provides implementation patterns you can apply to your GraphQL API.

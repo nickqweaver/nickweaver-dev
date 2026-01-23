@@ -25,8 +25,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <div className="mb-6 text-muted-foreground">
             <span className="text-dr-green">❯</span> cat posts/{post.slug}.md
           </div>
-          <h1 className="text-2xl md:text-3xl text-foreground mb-4">{post.title}</h1>
-          <p className="text-muted-foreground mb-4">{post.excerpt}</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{post.title}</h1>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span>{date}</span>
             <span>{post.readingTime}</span>
