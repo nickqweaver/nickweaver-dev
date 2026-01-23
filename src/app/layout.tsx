@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { VimMode } from "@/components/vim-mode"
+import { PageTransition } from "@/components/page-transition"
 import "./globals.css"
 
 const geistMono = localFont({
@@ -29,7 +30,9 @@ export default function RootLayout({
           <VimMode>
             <div className="flex min-h-screen flex-col bg-background text-foreground">
               <Header />
-              <div className="flex-1">{children}</div>
+              <div className="flex-1">
+                <PageTransition>{children}</PageTransition>
+              </div>
               <footer className="border-t border-border pb-8">
                 <div className="container py-6">
                   <div className="flex flex-col gap-2 text-sm text-muted-foreground">
