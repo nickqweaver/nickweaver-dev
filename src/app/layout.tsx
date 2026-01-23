@@ -16,6 +16,18 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Nick Weaver",
   description: "Software engineer focused on reliability and performance.",
+  metadataBase: new URL("https://nickweaver.dev"),
+  openGraph: {
+    title: "Nick Weaver",
+    description: "Software engineer focused on reliability and performance.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nick Weaver",
+    description: "Software engineer focused on reliability and performance.",
+    creator: "@TheSWEaver",
+  },
 }
 
 export default function RootLayout({
