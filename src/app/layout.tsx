@@ -49,7 +49,8 @@ export default function RootLayout({
               </div>
               <footer className="border-t border-border pb-8">
                 <div className="container py-6">
-                  <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <span>© {new Date().getFullYear()} nick weaver</span>
                     <div className="flex items-center gap-6">
                       <a
                         href="https://github.com/nickqweaver"
@@ -76,7 +77,6 @@ export default function RootLayout({
                         x.com
                       </a>
                     </div>
-                    <span>© {new Date().getFullYear()} nick weaver</span>
                   </div>
                 </div>
               </footer>
