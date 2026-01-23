@@ -25,7 +25,8 @@ interface VimModeContextType {
 
 const VimModeContext = createContext<VimModeContextType | null>(null)
 
-const INTERACTIVE_SELECTOR = 'a[href], button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"]), h1, h2, h3, h4, h5, h6'
+const INTERACTIVE_SELECTOR =
+  'a[href], button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"]), h1, h2, h3, h4, h5, h6'
 const MAX_ELEMENT_HEIGHT = 60 // Skip elements taller than this (e.g., card links)
 
 export function useVimMode() {
@@ -45,7 +46,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
 
   const getInteractiveElements = useCallback(() => {
     const elements = Array.from(
-      document.querySelectorAll<HTMLElement>(INTERACTIVE_SELECTOR)
+      document.querySelectorAll<HTMLElement>(INTERACTIVE_SELECTOR),
     ).filter((el) => {
       // Filter out hidden elements and elements that are too large
       const style = window.getComputedStyle(el)
@@ -124,18 +125,21 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     setFocusedElement(null)
   }, [])
 
-  const moveFocus = useCallback((direction: "up" | "down") => {
-    const elements = elementsRef.current
-    if (elements.length === 0) return
+  const moveFocus = useCallback(
+    (direction: "up" | "down") => {
+      const elements = elementsRef.current
+      if (elements.length === 0) return
 
-    const newIndex =
-      direction === "down"
-        ? Math.min(currentIndexRef.current + 1, elements.length - 1)
-        : Math.max(currentIndexRef.current - 1, 0)
+      const newIndex =
+        direction === "down"
+          ? Math.min(currentIndexRef.current + 1, elements.length - 1)
+          : Math.max(currentIndexRef.current - 1, 0)
 
-    currentIndexRef.current = newIndex
-    updateFocusedElement(elements, newIndex)
-  }, [updateFocusedElement])
+      currentIndexRef.current = newIndex
+      updateFocusedElement(elements, newIndex)
+    },
+    [updateFocusedElement],
+  )
 
   const activateFocused = useCallback(() => {
     if (!focusedElement?.element) return
@@ -144,7 +148,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     const tagName = el.tagName.toLowerCase()
 
     // For headings, scroll to top of viewport
-    if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)) {
+    if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(tagName)) {
       const rect = el.getBoundingClientRect()
       window.scrollBy({ top: rect.top - 100, behavior: "instant" })
     } else {
@@ -229,11 +233,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't capture keys when focused on input elements
       const target = e.target as HTMLElement
-      if (
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable
-      ) {
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
         return
       }
 
@@ -285,8 +285,6 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   }, [mode, enterNormalMode, exitNormalMode, moveFocus, activateFocused, updateFocusedElement])
 
   return (
-    <VimModeContext.Provider value={{ mode, focusedElement }}>
-      {children}
-    </VimModeContext.Provider>
+    <VimModeContext.Provider value={{ mode, focusedElement }}>{children}</VimModeContext.Provider>
   )
 }

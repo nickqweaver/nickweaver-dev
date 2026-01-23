@@ -31,38 +31,38 @@ export default function RootLayout({
               <Header />
               <div className="flex-1">{children}</div>
               <footer className="border-t border-border">
-              <div className="container py-6">
-                <div className="flex flex-col gap-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-                  <span>© {new Date().getFullYear()} nick weaver</span>
-                  <div className="flex items-center gap-6">
-                    <a
-                      href="https://github.com/nickqweaver"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                    >
-                      github
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/nicholas-q-weaver/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                    >
-                      linkedin
-                    </a>
-                    <a
-                      href="https://twitter.com/TheSWEaver"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                    >
-                      x.com
-                    </a>
+                <div className="container py-6">
+                  <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-6">
+                      <a
+                        href="https://github.com/nickqweaver"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary transition-colors"
+                      >
+                        github
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/in/nicholas-q-weaver/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary transition-colors"
+                      >
+                        linkedin
+                      </a>
+                      <a
+                        href="https://twitter.com/TheSWEaver"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary transition-colors"
+                      >
+                        x.com
+                      </a>
+                    </div>
+                    <span>© {new Date().getFullYear()} nick weaver</span>
                   </div>
                 </div>
-              </div>
-            </footer>
+              </footer>
             </div>
           </VimMode>
         </ThemeProvider>
