@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Script from "next/script"
 import { getAllPosts } from "@/lib/api"
+import { ContactForm } from "@/components/contact-form"
 
 const experience = [
   {
@@ -205,7 +206,7 @@ export default function Home() {
         <div className="divider mb-16" aria-hidden="true" />
 
         {/* Writing */}
-        <section id="writing" className="scroll-mt-20">
+        <section id="writing" className="mb-16 scroll-mt-20">
           <div className="mb-6 text-muted-foreground">
             <span className="text-dr-green">❯</span> ls posts/
           </div>
@@ -237,6 +238,21 @@ export default function Home() {
             >
               → view all posts
             </Link>
+          </div>
+        </section>
+
+        <div className="divider mb-16" aria-hidden="true" />
+
+        {/* Contact */}
+        <section id="contact" className="scroll-mt-20">
+          <div className="mb-6 text-muted-foreground">
+            <span className="text-dr-green">❯</span> ./contact.sh
+          </div>
+          <p className="text-muted-foreground mb-6 max-w-xl">
+            Have a project in mind or just want to chat? Send me a message.
+          </p>
+          <div className="max-w-2xl">
+            <ContactForm />
           </div>
         </section>
       </main>

@@ -48,16 +48,18 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     const elements = Array.from(
       document.querySelectorAll<HTMLElement>(INTERACTIVE_SELECTOR),
     ).filter((el) => {
-      // Filter out hidden elements and elements that are too large
+      // Filter out hidden elements and elements that are too large (except form inputs)
       const style = window.getComputedStyle(el)
       const rect = el.getBoundingClientRect()
+      const tagName = el.tagName.toLowerCase()
+      const isFormInput = ["input", "textarea", "select"].includes(tagName)
       return (
         style.display !== "none" &&
         style.visibility !== "hidden" &&
         style.opacity !== "0" &&
         rect.width > 0 &&
         rect.height > 0 &&
-        rect.height <= MAX_ELEMENT_HEIGHT
+        (isFormInput || rect.height <= MAX_ELEMENT_HEIGHT)
       )
     })
 
@@ -91,7 +93,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const enterNormalMode = useCallback(() => {
+  const enterNormalMode = useCallback((fromElement?: HTMLElement) => {
     const elements = getInteractiveElements()
     elementsRef.current = elements
 
@@ -101,22 +103,38 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    // Find the first element in or near the viewport
-    const viewportMiddle = window.innerHeight / 2
-    let closestIndex = 0
-    let closestDistance = Infinity
+    let targetIndex = 0
 
-    elements.forEach((el, i) => {
-      const rect = el.getBoundingClientRect()
-      const distance = Math.abs(rect.top - viewportMiddle)
-      if (distance < closestDistance) {
-        closestDistance = distance
-        closestIndex = i
-      }
-    })
+    if (fromElement) {
+      // Stay on the element we came from
+      const fromRect = fromElement.getBoundingClientRect()
+      let closestDistance = Infinity
 
-    currentIndexRef.current = closestIndex
-    updateFocusedElement(elements, closestIndex)
+      elements.forEach((el, i) => {
+        const rect = el.getBoundingClientRect()
+        const distance = Math.abs(rect.top - fromRect.top) + Math.abs(rect.left - fromRect.left)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          targetIndex = i
+        }
+      })
+    } else {
+      // Find the first element in or near the viewport
+      const viewportMiddle = window.innerHeight / 2
+      let closestDistance = Infinity
+
+      elements.forEach((el, i) => {
+        const rect = el.getBoundingClientRect()
+        const distance = Math.abs(rect.top - viewportMiddle)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          targetIndex = i
+        }
+      })
+    }
+
+    currentIndexRef.current = targetIndex
+    updateFocusedElement(elements, targetIndex)
     setMode("NORMAL")
   }, [getInteractiveElements, updateFocusedElement])
 
@@ -151,10 +169,14 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(tagName)) {
       const rect = el.getBoundingClientRect()
       window.scrollBy({ top: rect.top - 100, behavior: "instant" })
+    } else if (["input", "textarea", "select"].includes(tagName)) {
+      // For form inputs, focus them and exit vim mode so user can type
+      el.focus()
+      exitNormalMode()
     } else {
       el.click()
     }
-  }, [focusedElement])
+  }, [focusedElement, exitNormalMode])
 
   // Update rects on scroll/resize
   useEffect(() => {
@@ -231,17 +253,29 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't capture keys when focused on input elements
       const target = e.target as HTMLElement
-      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+      const isInputFocused = target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable
+
+      // Allow Escape to work even when focused on inputs - blur and enter vim mode
+      if (e.key === "Escape") {
+        e.preventDefault()
+        if (isInputFocused) {
+          target.blur()
+          // Enter vim mode starting from the next element after this input
+          enterNormalMode(target)
+        } else if (mode === "BROWSE") {
+          enterNormalMode()
+        }
+        return
+      }
+
+      // Don't capture other keys when focused on input elements
+      if (isInputFocused) {
         return
       }
 
       if (mode === "BROWSE") {
-        if (e.key === "Escape") {
-          e.preventDefault()
-          enterNormalMode()
-        }
+        // Escape handled above
       } else {
         switch (e.key) {
           case "q":
