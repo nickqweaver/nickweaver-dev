@@ -30,7 +30,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col bg-background text-foreground">
               <Header />
               <div className="flex-1">{children}</div>
-              <footer className="border-t border-border">
+              <footer className="border-t border-border pb-8">
                 <div className="container py-6">
                   <div className="flex flex-col gap-2 text-sm text-muted-foreground">
                     <div className="flex items-center gap-6">

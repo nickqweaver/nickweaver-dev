@@ -244,8 +244,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
         }
       } else {
         switch (e.key) {
-          case "i":
-          case "Escape":
+          case "q":
             e.preventDefault()
             exitNormalMode()
             break

@@ -1,21 +1,45 @@
 "use client"
 
 import { useVimMode } from "./vim-mode-context"
+import { usePathname } from "next/navigation"
 
 export function StatusLine() {
   const { mode } = useVimMode()
+  const pathname = usePathname()
+
+  const pathDisplay = pathname === "/" ? "~" : `~${pathname}`
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 font-mono text-sm select-none">
-      {mode === "NORMAL" ? (
-        <span className="px-2 py-1 bg-dr-green/20 text-dr-green">
-          -- NORMAL --
-        </span>
-      ) : (
-        <span className="px-2 py-1 bg-muted text-muted-foreground">
-          Press Esc
-        </span>
-      )}
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card text-xs font-mono">
+      <div className="flex h-7 items-center justify-between px-4">
+        <span className="text-muted-foreground">{pathDisplay}</span>
+        <div className="flex items-center gap-3">
+          {mode === "NORMAL" ? (
+            <>
+              <span className="text-muted-foreground hidden sm:inline">
+                j/k <span className="text-muted-foreground/50">nav</span>
+                <span className="mx-2 text-border">·</span>
+                enter <span className="text-muted-foreground/50">select</span>
+                <span className="mx-2 text-border">·</span>
+                g/G <span className="text-muted-foreground/50">top/end</span>
+                <span className="mx-2 text-border">·</span>
+                q <span className="text-muted-foreground/50">quit</span>
+              </span>
+              <span className="text-muted-foreground sm:hidden">
+                j/k · enter · q
+              </span>
+              <span className="bg-dr-green text-background px-2 py-0.5 font-bold">NORMAL</span>
+            </>
+          ) : (
+            <>
+              <span className="text-muted-foreground">
+                esc <span className="text-muted-foreground/50">vim mode</span>
+              </span>
+              <span className="bg-muted text-muted-foreground px-2 py-0.5">BROWSE</span>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
