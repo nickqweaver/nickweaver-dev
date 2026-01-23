@@ -2,35 +2,66 @@
 
 import { useState } from "react"
 
+type Status = "idle" | "sending" | "success" | "error"
+
 export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<Status>("idle")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Placeholder - will wire up to backend later
-    setSubmitted(true)
+    setStatus("sending")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) throw new Error("Failed to send")
+      setStatus("success")
+    } catch {
+      setStatus("error")
+    }
   }
 
-  if (submitted) {
+  if (status === "success") {
     return (
       <div className="space-y-2">
         <div className="text-muted-foreground">
           <span className="text-dr-green">❯</span> ./send.sh --to nick
         </div>
-        <div className="text-dr-green">✓ Message queued. I&apos;ll get back to you soon.</div>
+        <div className="text-dr-green">✓ Message sent. I&apos;ll get back to you soon.</div>
         <button
           onClick={() => {
-            setSubmitted(false)
+            setStatus("idle")
             setFormData({ name: "", email: "", message: "" })
           }}
           className="text-muted-foreground hover:text-primary transition-colors mt-4"
         >
           → send another
+        </button>
+      </div>
+    )
+  }
+
+  if (status === "error") {
+    return (
+      <div className="space-y-2">
+        <div className="text-muted-foreground">
+          <span className="text-dr-red">❯</span> ./send.sh --to nick
+        </div>
+        <div className="text-dr-red">✗ Failed to send. Try again?</div>
+        <button
+          onClick={() => setStatus("idle")}
+          className="text-muted-foreground hover:text-primary transition-colors mt-4"
+        >
+          → retry
         </button>
       </div>
     )
@@ -92,9 +123,10 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="text-muted-foreground hover:text-dr-green transition-colors"
+        disabled={status === "sending"}
+        className="text-muted-foreground hover:text-dr-green transition-colors disabled:opacity-50"
       >
-        [send]
+        {status === "sending" ? "[sending...]" : "[send]"}
       </button>
     </form>
   )
