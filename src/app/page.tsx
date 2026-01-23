@@ -41,10 +41,11 @@ const projects = [
     link: "https://github.com/nickqweaver/graphql-dataloader-example",
   },
   {
-    name: "thread-pool",
-    desc: "A lightweight worker pool with scheduling, instrumentation, and backpressure.",
-    tags: ["threads", "scheduling", "metrics"],
-    status: "planned",
+    name: "cookweave",
+    desc: "I got sick of scrolling through recipe blog ads. This app uses LLM's to extract recipe data off a URL.",
+    tags: ["tanstackstart", "openai", "microrag"],
+    status: "live",
+    link: "https://github.com/nickqweaver/cookbook",
   },
   {
     name: "http-server",
@@ -79,14 +80,13 @@ export default function Home() {
           <div className="mb-6 text-muted-foreground">
             <span className="text-dr-green">❯</span> cat about.txt
           </div>
-          <h1 className="text-2xl md:text-3xl text-foreground mb-4">
-            Nick Weaver
-          </h1>
+          <h1 className="text-2xl md:text-3xl text-foreground mb-4">Nick Weaver</h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed mb-6">
-            Software engineer focused on <span className="text-dr-cyan">reliability</span> and{" "}
-            <span className="text-dr-cyan">performance</span>. I&apos;ve shipped web platforms,
-            performance-critical editors, and internal tooling. Now going deeper on the
-            fundamentals behind resilient infrastructure and runtimes.
+            Software engineer who enjoys solving real engineering problems—where{" "}
+            <span className="text-dr-cyan">structure</span>,{" "}
+            <span className="text-dr-cyan">constraints</span>, and{" "}
+            <span className="text-dr-cyan">tradeoffs</span> have to be discovered, not followed.
+            I work across the stack and like to understand how things actually work.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a
@@ -128,9 +128,7 @@ export default function Home() {
                   <span className="text-dr-purple w-28 shrink-0">{item.area}/</span>
                   <span className="text-foreground">{item.title}</span>
                 </div>
-                <p className="text-muted-foreground text-sm mt-1 sm:ml-32">
-                  {item.desc}
-                </p>
+                <p className="text-muted-foreground text-sm mt-1 sm:ml-32">{item.desc}</p>
               </div>
             ))}
           </div>
