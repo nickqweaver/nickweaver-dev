@@ -90,36 +90,34 @@ export default function Home() {
           </div>
           <h1 className="text-2xl md:text-3xl text-foreground mb-4">Nick Weaver</h1>
           <p className="text-muted-foreground max-w-2xl leading-relaxed mb-6">
-            Software engineer who enjoys solving real engineering problems—where{" "}
-            <span className="text-dr-cyan">structure</span>,{" "}
-            <span className="text-dr-cyan">constraints</span>, and{" "}
-            <span className="text-dr-cyan">tradeoffs</span> have to be discovered, not followed. I
-            work across the stack and like to understand how things actually work.
+            I’m a software engineer driven by <span className="text-dr-cyan">curiosity</span> and{" "}
+            <span className="text-dr-cyan">deep understanding</span>, not just shipping familiar
+            solutions.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a
               href="https://github.com/nickqweaver"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-primary hover:text-dr-cyan transition-colors"
             >
-              github
+              [github]
             </a>
             <a
               href="https://www.linkedin.com/in/nicholas-q-weaver/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-primary hover:text-dr-cyan transition-colors"
             >
-              linkedin
+              [linkedin]
             </a>
             <a
               href="https://twitter.com/TheSWEaver"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-primary hover:text-dr-cyan transition-colors"
             >
-              x.com
+              [x.com]
             </a>
           </div>
         </section>
