@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Script from "next/script"
 import { getAllPosts } from "@/lib/api"
 import { ContactForm } from "@/components/contact-form"
 
@@ -77,11 +76,6 @@ export default function Home() {
 
   return (
     <>
-      <Script
-        defer
-        data-domain="nickweaver.dev"
-        src="https://plausible-analytics-ce-production-0932.up.railway.app/js/script.outbound-links.tagged-events.js"
-      />
       <main className="container py-12 md:py-16">
         {/* Hero */}
         <section className="mb-16">
