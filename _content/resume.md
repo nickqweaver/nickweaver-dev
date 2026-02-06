@@ -6,20 +6,23 @@ lastUpdated: "2026-01-22"
 ## Experience
 
 ### Software Engineer
+
 **SendOutCards** | Salt Lake City, UT | April 2022 – Present
 
-- Built async GraphQL wrapper around legacy print pipeline with the production fulfillment team, adding custom enterprise print filters to onboard a $1M ARR enterprise client
+- Built async GraphQL wrapper around our legacy print pipeline with the production fulfillment team, adding custom enterprise print filters to onboard a $1M ARR enterprise client
 - Optimized batch-processing pipeline by caching previously processed images in memory, eliminating redundant sequential processing and accelerating throughput 5x
-- Developed a configurable risk mitigation engine with admin controlled rule sets, threshold tuning and automated blocking/warning actions, reducing digital gift card fraud to nearly zero
+- Delivered a configurable risk engine with rule-based thresholds and automated blocking, reducing digital gift card fraud from a targeted attack vector to near zero
 - Cut card editor load time in half by implementing data prefetching, fine-tuning client-side cache policies and leveraging CloudFront CDN for static asset caching
 - Rebuilt the greeting card rich text editor to use ProseMirror's native DOM handling and debounced Redux state updates, reduced re-renders, eliminated keystroke latency and delivered a smooth editing experience
-- Contributed to the launch of digital greeting-card platform, enabling users to send 3D animated cards through shareable links that generated over $100K in new revenue within the first seven days
-- Integrated Saleor E-commerce SaaS to decouple order logic from legacy backend, enabling faster iteration on digital product offerings
+- Contributed to the launch of our digital greeting-card platform, enabling users to send 3D animated cards through shareable links that generated over $100K in new revenue within the first seven days
+- Integrated Saleor E-commerce SaaS to decouple order logic from our legacy backend, enabling faster iteration on digital product offerings
 - Built a Stripe-powered cart/checkout for digital products, boosting revenue 5.6% and new customers 4.8%
-- Eliminated S3 thumbnail storage and improved image delivery latency by developing an on-demand API that dynamically generated Open Graph preview images, fronted by AWS CloudFront edge caching
-- Replaced a legacy forked Redux/Apollo cache with TanStack Query plus type-safe query keys, simplified state management, reduced technical debt, and boosted data-fetch and render performance
+- Eliminated S3 thumbnail storage by building an on-demand Open Graph image generation API
+- Upgraded three core repositories to React 18 and replaced Webpack with Vite, cutting build times by ~80%
+- Replaced a legacy client-side Redux cache with TanStack Query, reducing tech debt and improving data and render performance
 
 ### Frontend Software Engineer
+
 **SendOutCards** | Salt Lake City, UT | December 2019 – April 2022
 
 - Rebuilt card editor into a reusable React Component, significantly enhancing user experience by enabling unrestricted element placement with layering, rotation, custom sizing and sticker support
