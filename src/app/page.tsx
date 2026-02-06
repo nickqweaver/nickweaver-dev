@@ -48,10 +48,11 @@ const projects = [
     link: "https://github.com/nickqweaver/cookbook",
   },
   {
-    name: "jobqueue",
-    desc: "Persistent job queue built from scratch with timeouts, retries, and at-least-once delivery.",
-    tags: ["go", "postgres", "concurrency"],
+    name: "weave-queue",
+    desc: "Persistent job queue built from scratch with timeouts, retries, and at-least-once delivery, pluggable store (redis, sql and more)",
+    tags: ["go", "postgres", "redis", "concurrency"],
     status: "inprogress",
+    link: "https://github.com/nickqweaver/weave-queue",
   },
   {
     name: "http-server",
