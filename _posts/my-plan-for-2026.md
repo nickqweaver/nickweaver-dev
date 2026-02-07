@@ -1,79 +1,31 @@
 ---
 title: "My Plan for 2026"
-excerpt: "System design, technical writing, distributed systems and more deep dives"
-date: "2026-01-22T13:30:00.000Z"
+excerpt: "A 2026 reset: less hype, more depth-building in Go, creating lower-level systems projects, and writing to sharpen technical thinking."
+date: "2026-02-07T13:30:00.000Z"
 author:
   name: Nick Weaver
 ogImage:
   url: "/assets/blog/dynamic-routing/cover.jpg"
 readingTime: "5 min"
-status: "draft"
+status: "active"
 ---
 
-### Title
+## Why 2026 Is a Reset
 
-I'm big on always learning, that's what attracted me to this field in the fist place. I've always got a side project i'm working on, and I re enrolled in school to finish
-up my computer science degree I never finished. The passed two years I've focused on trying to build applications that I could sell and have been focusing on solving problems I didn't care about.
-I'm going to start chasing passion again.
+For the last six years I have been working professionally as a software engineer, primarily on full stack web applications. The web dev ecosystem runs on continuous hype cycles, from frameworks and libraries to AI tooling and workflows. I prioritized reacting to industry noise over committing to technically deep projects that actually held my interest. It’s 2026 and the noise is only getting worse. I’m writing this post as a reference plan for the goals I want to hold myself accountable for.
 
-### Title
+## Optimizing for Depth
 
-I've got a breadth of experience. I work as a full stack engineer and that involves a lot of crud operations. I'm sick of them, luckily with the help of AI that condesnses down on boilerplate I have to write.
-I've worked with new technolgogies and frameworks but every project I work on I end up gravitating towards the lower level modules. Example, UploadSlate is a media upload/file hosting application. The part I had
-the most fun with was building the worker thread pool (which I didn't even need to do, there's plenty libraries out there that are probably more robust). But I had fun, and that's what this year is going to be about.
-Me working on things I want, and diving deeper on more technical smaller scoped projects.
+This year I’m optimizing for depth. I’m focusing on narrowly scoped projects tied to learning specific technical domains, simplifying my stack, and staying away from framework and abstraction hell. I want to build the things I am curious about, not because they might make money. In the past, most of my projects were SaaS applications solving problems I wasn’t passionate about, following a ship fast mentality.
 
-### Title
+## Committing to Go
 
-Writing this article makes me realize how bad I am at writing. I want to get better at it and have wanted to keep this blog writing consistent but haven't felt I've had anything to write about. This probably stems from my
-framework hopping. Oh let me write another article about tanstack. Nah, this year we are going to be writing about deep dives to help solidfy my understanding and technical communication skills.
+My primary languages are Node and Python. At work, I write Python in a Django backend and for personal projects I usually prefer Node. I’ve grown frustrated with both languages despite their excellent community support. Python has multiple officially supported concurrency models and navigating between them can feel fragmented depending on the system you're building, and the Node/TypeScript ecosystem has become exhausting. This year, I’m committing to Go for all personal projects. Its simplicity, excellent concurrency model, and compiled binary output align well with my goals.
 
-### Title
+## Building for Myself + Writing More
 
-Identity crisis. This field has so many ways you can go, I've been so undecisive in the past because a new tech comese out every week. Now with new AI tech taking our jobs every week I figured I'm just going to get back
-to programming and chanllenging my brain.
+This year I’m focusing on building projects for myself. In the past, I chased business ideas and tried to solve problems I didn’t have firsthand experience with. That usually led to burnout because I didn’t fully understand (or have the desire to understand) the problem space. Instead, I’m focusing on lower-level projects to deepen my technical understanding: a persistent job queue, an HTTP server and WebSocket server from scratch and deploying a K3s cluster on my home server.
 
-### Title
+One of the most underrated skills in this field is communication. Being able to cleary explain technical concepts to both technical and non-technical audiences is extremely valuable. This is an area I’ve neglected and haven’t made a real priority. Having a mental model of how something works is very different from being able to explain it verbally or in writing. This year, I’m making writing a major focus by documenting my thinking and doing deep technical write-ups on my projects to solidify my understanding.
 
-So yeah this year will be me focusing on smaller technical projects, technical writing, system design and distributed systems
-
-# What are you actually trying to say.
-
-1. My experience has been more general, and more breadth than depth
-2. I'm burn't out on SaaS/Application development
-3. I'm burn't out on framwork hopping.
-4. I'm burn't out on new technologies
-5. I have more fun building things from scratch and learning how they work (reverse engineering)
-6. I want to gain more depth in distributed systems/system design
-7. I want to get better at technical writing
-
-# outline
-
-- Fighting between shiny new tech/starting a business and deep learning fundementals, career moves (started building QDS, learning react, rollup build systems and building prop style generation engine this was fun). Rebuit the full card editor, then you moved to saas land. It was fun while you were learning backend development but now
-- trying to fufill that fun with a new framework when i'd rather build the framework
-- What I've done in the past
-
-Who is this for?
-Myself
-
-What problem are you responding to?
-Feeling like I want a deeper understanding of how things work and building for fun
-Bulding for me, not others
-Burn out on scope creep side projects that end up CRUD stuff I could do in my sleep
-
-What are you changing in 2026?
-
-- Deep learning
-- Building small focused projects
-- Technical writing on each project
-- Seeing projects through
-- Setting depth anchors and projects around that depth anchor
-- Established a SWE identity, and wrap depth anchor goals around that
-
-Why didn’t the old approach work?
-
-- Framework hopping (nextjs, tanstack start, new data fetching libs, graphql, django, node)
-- Knowledge gaps in full system design/architecture
-- Burn out, start a project work on the interesting piece and then not want to finish later
-- Feels like i'm running in circles
-- Working on stuff just to work on stuff no goal/plan working towards
+This post is the roadmap I’m committing to for 2026. It’s a reset in how I choose what to learn, what to build and what to ignore. I’m trusting my instincts, ignoring the noise and building the things I actually care about.
