@@ -1,5 +1,3 @@
-"use client"
-
 import {
   createContext,
   useContext,
@@ -9,7 +7,7 @@ import {
   useRef,
   type ReactNode,
 } from "react"
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 
 type Mode = "BROWSE" | "NORMAL"
 
@@ -42,7 +40,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   const [focusedElement, setFocusedElement] = useState<FocusedElement | null>(null)
   const currentIndexRef = useRef(0)
   const elementsRef = useRef<HTMLElement[]>([])
-  const pathname = usePathname()
+  const pathname = useLocation({ select: (location) => location.pathname })
 
   const getInteractiveElements = useCallback(() => {
     const elements = Array.from(

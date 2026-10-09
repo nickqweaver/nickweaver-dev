@@ -1,44 +1,53 @@
 import type React from "react"
-import type { Metadata } from "next"
-import localFont from "next/font/local"
+import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { VimMode } from "@/components/vim-mode"
 import { PageTransition } from "@/components/page-transition"
 import { CommandMenuProvider } from "@/components/command-menu"
-import "./globals.css"
+import { NotFound } from "@/components/not-found"
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/seo"
+import geistMonoUrl from "@/styles/fonts/GeistMonoVF.woff?url"
+import globalsCss from "@/styles/globals.css?url"
 
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: SITE_TITLE },
+      { name: "description", content: SITE_DESCRIPTION },
+      { property: "og:title", content: SITE_TITLE },
+      { property: "og:description", content: SITE_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:creator", content: "@TheSWEaver" },
+      { name: "twitter:title", content: SITE_TITLE },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
+    ],
+    links: [
+      { rel: "stylesheet", href: globalsCss },
+      {
+        rel: "preload",
+        href: geistMonoUrl,
+        as: "font",
+        type: "font/woff",
+        crossOrigin: "anonymous",
+      },
+      { rel: "icon", href: "/icon.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+  }),
+  notFoundComponent: NotFound,
+  shellComponent: RootDocument,
 })
 
-export const metadata: Metadata = {
-  title: "Nick Weaver",
-  description: "Software engineer focused on reliability and performance.",
-  metadataBase: new URL("https://nickweaver.dev"),
-  openGraph: {
-    title: "Nick Weaver",
-    description: "Software engineer focused on reliability and performance.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Nick Weaver",
-    description: "Software engineer focused on reliability and performance.",
-    creator: "@TheSWEaver",
-  },
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${geistMono.variable} font-mono antialiased`}>
+      <head>
+        <HeadContent />
+      </head>
+      <body className="font-mono antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <CommandMenuProvider>
             <VimMode>
@@ -84,6 +93,7 @@ export default function RootLayout({
             </VimMode>
           </CommandMenuProvider>
         </ThemeProvider>
+        <Scripts />
       </body>
     </html>
   )

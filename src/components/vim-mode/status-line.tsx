@@ -1,11 +1,9 @@
-"use client"
-
 import { useVimMode } from "./vim-mode-context"
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 
 export function StatusLine() {
   const { mode } = useVimMode()
-  const pathname = usePathname()
+  const pathname = useLocation({ select: (location) => location.pathname })
 
   const pathDisplay = pathname === "/" ? "~" : `~${pathname}`
 

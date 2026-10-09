@@ -1,6 +1,13 @@
-import Link from "next/link"
+import { Link, createFileRoute } from "@tanstack/react-router"
 import { getAllPosts } from "@/lib/api"
+import { homeHead } from "@/lib/seo"
 import { ContactForm } from "@/components/contact-form"
+
+export const Route = createFileRoute("/")({
+  loader: async () => (await getAllPosts()).slice(0, 4),
+  head: () => homeHead("/"),
+  component: Home,
+})
 
 const experience = [
   {
@@ -72,8 +79,8 @@ function StatusBadge({ status }: { status: string }) {
   return <span className={colors[status] || "text-muted-foreground"}>[{status}]</span>
 }
 
-export default function Home() {
-  const posts = getAllPosts().slice(0, 4)
+function Home() {
+  const posts = Route.useLoaderData()
 
   return (
     <>
@@ -137,7 +144,7 @@ export default function Home() {
           </div>
           <div className="mt-6">
             <Link
-              href="/resume"
+              to="/resume"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               → view full resume
@@ -209,11 +216,13 @@ export default function Home() {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
+                timeZone: "UTC",
               })
               return (
                 <Link
                   key={post.slug}
-                  href={`/blog/${post.slug}`}
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
                   className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4"
                 >
                   <span className="text-muted-foreground text-sm shrink-0 w-28">{date}</span>
@@ -226,7 +235,7 @@ export default function Home() {
           </div>
           <div className="mt-6">
             <Link
-              href="/blog"
+              to="/blog"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
               → view all posts

@@ -1,6 +1,6 @@
-import Link from "next/link"
+import { Link } from "@tanstack/react-router"
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <main className="container py-12 md:py-16">
       <div className="max-w-2xl">
@@ -20,7 +20,7 @@ export default function NotFound() {
 
         <div className="flex gap-6">
           <Link
-            href="/"
+            to="/"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             ← back home

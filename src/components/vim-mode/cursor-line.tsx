@@ -1,5 +1,3 @@
-"use client"
-
 import { useVimMode } from "./vim-mode-context"
 
 export function CursorLine() {

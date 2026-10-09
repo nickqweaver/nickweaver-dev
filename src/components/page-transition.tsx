@@ -1,11 +1,9 @@
-"use client"
-
 import { motion } from "framer-motion"
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 import type { ReactNode } from "react"
 
 export function PageTransition({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
+  const pathname = useLocation({ select: (location) => location.pathname })
 
   return (
     <motion.div

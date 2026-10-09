@@ -1,7 +1,5 @@
-"use client"
-
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@tanstack/react-router"
 import { useTheme } from "next-themes"
 import {
   CommandDialog,
@@ -95,7 +93,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={page.href}
               value={page.name + " " + page.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.push(page.href))}
+              onSelect={() => runCommand(() => router.history.push(page.href))}
             >
               <span className="text-dr-green mr-2">→</span>
               {page.name}
@@ -110,7 +108,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={section.href}
               value={section.name + " " + section.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.push(section.href))}
+              onSelect={() => runCommand(() => router.history.push(section.href))}
             >
               <span className="text-dr-purple mr-2">#</span>
               {section.name}
