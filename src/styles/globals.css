@@ -2,8 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Replaces next/font/local; keeps the --font-geist-mono variable the Tailwind config reads. */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./fonts/GeistMonoVF.woff") format("woff");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
+    --font-geist-mono: "Geist Mono";
+
     /* Dracula Light - inverted for daywalkers */
     --background: 60 30% 96%;
     --foreground: 231 15% 18%;
@@ -89,7 +100,9 @@
 
   body {
     @apply bg-background text-foreground font-mono;
-    font-feature-settings: "ss01" 1, "ss02" 1;
+    font-feature-settings:
+      "ss01" 1,
+      "ss02" 1;
     overflow-x: hidden;
   }
 
@@ -124,8 +137,13 @@
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 
   /* Terminal prompt */
