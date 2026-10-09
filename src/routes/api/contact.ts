@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { env } from "cloudflare:workers"
+import { Resource } from "sst/resource"
 
 export const Route = createFileRoute("/api/contact")({
   server: {
@@ -14,10 +14,10 @@ export const Route = createFileRoute("/api/contact")({
             return Response.json({ error: "Missing fields" }, { status: 400 })
           }
 
-          const webhookUrl = env.DISCORD_WEBHOOK_URL
+          const webhookUrl = Resource.DiscordWebhookUrl.value
 
           if (!webhookUrl) {
-            console.error("DISCORD_WEBHOOK_URL not configured")
+            console.error("DiscordWebhookUrl secret not configured")
             return Response.json({ error: "Server misconfigured" }, { status: 500 })
           }
 
