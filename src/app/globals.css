@@ -89,7 +89,9 @@
 
   body {
     @apply bg-background text-foreground font-mono;
-    font-feature-settings: "ss01" 1, "ss02" 1;
+    font-feature-settings:
+      "ss01" 1,
+      "ss02" 1;
     overflow-x: hidden;
   }
 
@@ -124,8 +126,13 @@
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 
   /* Terminal prompt */

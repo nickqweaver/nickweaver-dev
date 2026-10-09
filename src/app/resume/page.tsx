@@ -21,13 +21,9 @@ export default async function ResumePage() {
           <div className="mb-8 text-muted-foreground">
             <span className="text-dr-green">❯</span> cat resume.md
           </div>
-          <h1 className="text-2xl md:text-3xl text-foreground mb-1">
-            {resume.title}
-          </h1>
+          <h1 className="text-2xl md:text-3xl text-foreground mb-1">{resume.title}</h1>
           {lastUpdated && (
-            <div className="text-sm text-muted-foreground">
-              last updated: {lastUpdated}
-            </div>
+            <div className="text-sm text-muted-foreground">last updated: {lastUpdated}</div>
           )}
         </div>
 

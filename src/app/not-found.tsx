@@ -12,9 +12,7 @@ export default function NotFound() {
           <span className="text-dr-red">bash: cd: /unknown-path: No such file or directory</span>
         </div>
 
-        <div className="text-6xl md:text-8xl font-bold text-foreground mb-4">
-          404
-        </div>
+        <div className="text-6xl md:text-8xl font-bold text-foreground mb-4">404</div>
 
         <p className="text-muted-foreground mb-8">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.

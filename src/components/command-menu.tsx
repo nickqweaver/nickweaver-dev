@@ -13,7 +13,10 @@ import {
   CommandSeparator,
 } from "@/components/ui/command"
 
-const CommandMenuContext = createContext<{ open: boolean; setOpen: (open: boolean) => void } | null>(null)
+const CommandMenuContext = createContext<{
+  open: boolean
+  setOpen: (open: boolean) => void
+} | null>(null)
 
 export function useCommandMenu() {
   const context = useContext(CommandMenuContext)
@@ -36,8 +39,16 @@ const sections = [
 
 const socials = [
   { name: "GitHub", href: "https://github.com/nickqweaver", keywords: ["github", "code", "repo"] },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/nicholas-q-weaver/", keywords: ["linkedin", "professional"] },
-  { name: "X / Twitter", href: "https://twitter.com/TheSWEaver", keywords: ["twitter", "x", "social"] },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/nicholas-q-weaver/",
+    keywords: ["linkedin", "professional"],
+  },
+  {
+    name: "X / Twitter",
+    href: "https://twitter.com/TheSWEaver",
+    keywords: ["twitter", "x", "social"],
+  },
 ]
 
 export function CommandMenuProvider({ children }: { children: ReactNode }) {
@@ -110,10 +121,7 @@ function CommandMenuDialog() {
         <CommandSeparator />
 
         <CommandGroup heading="Theme">
-          <CommandItem
-            value="dark mode theme"
-            onSelect={() => runCommand(() => setTheme("dark"))}
-          >
+          <CommandItem value="dark mode theme" onSelect={() => runCommand(() => setTheme("dark"))}>
             <span className="text-dr-cyan mr-2">◐</span>
             Dark Mode
           </CommandItem>

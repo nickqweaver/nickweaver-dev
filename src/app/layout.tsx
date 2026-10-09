@@ -42,46 +42,46 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <CommandMenuProvider>
             <VimMode>
-            <div className="flex min-h-screen flex-col bg-background text-foreground">
-              <Header />
-              <div className="flex-1">
-                <PageTransition>{children}</PageTransition>
-              </div>
-              <footer className="border-t border-border pb-8">
-                <div className="container py-6">
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <span>© {new Date().getFullYear()} nick weaver</span>
-                    <div className="flex items-center gap-6">
-                      <a
-                        href="https://github.com/nickqweaver"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                      >
-                        github
-                      </a>
-                      <a
-                        href="https://www.linkedin.com/in/nicholas-q-weaver/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                      >
-                        linkedin
-                      </a>
-                      <a
-                        href="https://twitter.com/TheSWEaver"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                      >
-                        x.com
-                      </a>
+              <div className="flex min-h-screen flex-col bg-background text-foreground">
+                <Header />
+                <div className="flex-1">
+                  <PageTransition>{children}</PageTransition>
+                </div>
+                <footer className="border-t border-border pb-8">
+                  <div className="container py-6">
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                      <span>© {new Date().getFullYear()} nick weaver</span>
+                      <div className="flex items-center gap-6">
+                        <a
+                          href="https://github.com/nickqweaver"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors"
+                        >
+                          github
+                        </a>
+                        <a
+                          href="https://www.linkedin.com/in/nicholas-q-weaver/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors"
+                        >
+                          linkedin
+                        </a>
+                        <a
+                          href="https://twitter.com/TheSWEaver"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors"
+                        >
+                          x.com
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </footer>
-            </div>
-          </VimMode>
+                </footer>
+              </div>
+            </VimMode>
           </CommandMenuProvider>
         </ThemeProvider>
       </body>

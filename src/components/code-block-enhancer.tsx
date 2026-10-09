@@ -23,7 +23,8 @@ export function CodeBlockEnhancer({ children }: { children: React.ReactNode }) {
 
       // Create wrapper
       const wrapper = document.createElement("div")
-      wrapper.className = "code-block-wrapper border border-border rounded-none overflow-hidden my-4"
+      wrapper.className =
+        "code-block-wrapper border border-border rounded-none overflow-hidden my-4"
 
       // Create header
       const header = document.createElement("div")
