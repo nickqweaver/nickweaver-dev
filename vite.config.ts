@@ -35,7 +35,20 @@ export default defineConfig({
       configPath: process.env.SST_WRANGLER_PATH,
       config: process.env.SST_WRANGLER_PATH ? undefined : LOCAL_WORKER_CONFIG,
     }),
-    tanstackStart(),
+    tanstackStart({
+      // Every page is static content, so serve prerendered HTML from the asset store instead of
+      // rendering React in the Worker per request. Links are crawled from `/`.
+      // Flat `blog.html` files keep `/blog` canonical: Workers assets would redirect `/blog` to
+      // `/blog/` if it were `blog/index.html`.
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        autoSubfolderIndex: false,
+        failOnError: true,
+        // Skip `/blog/` (the index route's id) so it redirects to `/blog` instead of duplicating it.
+        filter: ({ path }) => path === "/" || !path.endsWith("/"),
+      },
+    }),
     viteReact(),
   ],
 })

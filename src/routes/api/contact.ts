@@ -4,6 +4,8 @@ import { env } from "cloudflare:workers"
 export const Route = createFileRoute("/api/contact")({
   server: {
     handlers: {
+      // Without a GET handler the request would fall through to page rendering and return 200.
+      GET: () => new Response(null, { status: 405, headers: { Allow: "POST" } }),
       POST: async ({ request }) => {
         try {
           const { name, email, message } = await request.json()

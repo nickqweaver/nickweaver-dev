@@ -59,7 +59,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                 <footer className="border-t border-border pb-8">
                   <div className="container py-6">
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <span>© {new Date().getFullYear()} nick weaver</span>
+                      <span suppressHydrationWarning>© {new Date().getFullYear()} nick weaver</span>
                       <div className="flex items-center gap-6">
                         <a
                           href="https://github.com/nickqweaver"

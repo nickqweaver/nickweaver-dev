@@ -93,7 +93,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={page.href}
               value={page.name + " " + page.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.history.push(page.href))}
+              onSelect={() => runCommand(() => router.navigate({ href: page.href }))}
             >
               <span className="text-dr-green mr-2">→</span>
               {page.name}
@@ -108,7 +108,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={section.href}
               value={section.name + " " + section.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.history.push(section.href))}
+              onSelect={() => runCommand(() => router.navigate({ href: section.href }))}
             >
               <span className="text-dr-purple mr-2">#</span>
               {section.name}
