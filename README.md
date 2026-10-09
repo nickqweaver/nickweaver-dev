@@ -31,13 +31,32 @@ npm run dev                    # http://localhost:3000, runs the server code in 
 
 ## Environment
 
-The contact form (`POST /api/contact`) posts to a Discord webhook read from the
-`DISCORD_WEBHOOK_URL` Worker binding (`import { env } from "cloudflare:workers"`).
+The contact form (`POST /api/contact`) posts to a Discord webhook stored as the
+`DiscordWebhookUrl` SST secret and read with `Resource.DiscordWebhookUrl.value` from
+`sst/resource`.
 
-- `npm run dev` reads `.dev.vars` in the repo root (see `.dev.vars.example`).
+- `npm run dev` reads `.dev.vars` in the repo root (see `.dev.vars.example`), which mimics the
+  bindings SST links into the deployed Worker.
 - `npm run preview` reads `.dev.vars` next to the built config, so copy it first:
   `cp .dev.vars dist/server/.dev.vars`.
+- `npx sst dev` runs `npm run dev` with the real linked secrets of your personal stage.
 
-There is no `wrangler.*` file in the repo: deploys generate the Worker config and pass it to
-the Cloudflare Vite plugin through `SST_WRANGLER_PATH`. Locally `vite.config.ts` supplies the
-equivalent (`main`, `nodejs_compat`).
+## Deploy
+
+[SST](https://sst.dev/docs/component/cloudflare/tan-stack-start/) deploys the app to Cloudflare
+Workers (`sst.config.ts`). SST state lives in R2 on the same Cloudflare account. There is no
+`wrangler.*` file in the repo: SST generates the Worker config and passes it to the Cloudflare
+Vite plugin through `SST_WRANGLER_PATH`. Locally `vite.config.ts` supplies the equivalent
+(`main`, `nodejs_compat`).
+
+- Pushes to `main` deploy the `production` stage (`nickweaver.dev`) through
+  `.github/workflows/deploy.yml`, using the `CLOUDFLARE_API_TOKEN` and
+  `CLOUDFLARE_DEFAULT_ACCOUNT_ID` repository secrets.
+- `npm run deploy` deploys production from your machine with the same two env vars.
+- `npx sst deploy --stage <name>` deploys a throwaway stage on a `workers.dev` URL;
+  `npx sst remove --stage <name>` tears it down.
+- Set secrets per stage: `npx sst secret set DiscordWebhookUrl <url> --stage production`.
+
+Create the API token from the "Edit Cloudflare Workers" template, scoped to your account and the
+`nickweaver.dev` zone, then add Zone › DNS › Edit and Zone › Zone › Read (SST looks up the zone
+and attaches the Worker custom domain).
