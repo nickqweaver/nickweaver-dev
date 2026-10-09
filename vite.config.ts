@@ -3,6 +3,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import viteReact from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { content } from "./plugins/content.ts"
+import { ogImages } from "./plugins/og-images.ts"
 
 const LOCAL_WORKER_CONFIG = {
   name: "nickweaver-dev",
@@ -25,6 +26,7 @@ export default defineConfig({
   },
   plugins: [
     content(),
+    ogImages(),
     cloudflare({
       viteEnvironment: { name: "ssr" },
       // SST generates the Worker config at deploy time. There is no wrangler file in the
