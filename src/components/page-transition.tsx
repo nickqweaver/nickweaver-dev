@@ -1,11 +1,13 @@
-"use client"
-
 import { motion } from "framer-motion"
-import { usePathname } from "next/navigation"
+import { useRouterState } from "@tanstack/react-router"
 import type { ReactNode } from "react"
 
 export function PageTransition({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
+  // `location` switches before the next route's loader resolves, which would remount and fade
+  // the old page; key on the resolved location so the fade starts when the new page renders.
+  const pathname = useRouterState({
+    select: (state) => state.resolvedLocation?.pathname ?? state.location.pathname,
+  })
 
   return (
     <motion.div

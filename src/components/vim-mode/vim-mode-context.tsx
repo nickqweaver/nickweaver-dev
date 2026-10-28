@@ -1,5 +1,3 @@
-"use client"
-
 import {
   createContext,
   useContext,
@@ -9,7 +7,7 @@ import {
   useRef,
   type ReactNode,
 } from "react"
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 
 type Mode = "BROWSE" | "NORMAL"
 
@@ -42,7 +40,7 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   const [focusedElement, setFocusedElement] = useState<FocusedElement | null>(null)
   const currentIndexRef = useRef(0)
   const elementsRef = useRef<HTMLElement[]>([])
-  const pathname = usePathname()
+  const pathname = useLocation({ select: (location) => location.pathname })
 
   const getInteractiveElements = useCallback(() => {
     const elements = Array.from(
@@ -93,50 +91,53 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const enterNormalMode = useCallback((fromElement?: HTMLElement) => {
-    const elements = getInteractiveElements()
-    elementsRef.current = elements
+  const enterNormalMode = useCallback(
+    (fromElement?: HTMLElement) => {
+      const elements = getInteractiveElements()
+      elementsRef.current = elements
 
-    if (elements.length === 0) {
+      if (elements.length === 0) {
+        setMode("NORMAL")
+        setFocusedElement(null)
+        return
+      }
+
+      let targetIndex = 0
+
+      if (fromElement) {
+        // Stay on the element we came from
+        const fromRect = fromElement.getBoundingClientRect()
+        let closestDistance = Infinity
+
+        elements.forEach((el, i) => {
+          const rect = el.getBoundingClientRect()
+          const distance = Math.abs(rect.top - fromRect.top) + Math.abs(rect.left - fromRect.left)
+          if (distance < closestDistance) {
+            closestDistance = distance
+            targetIndex = i
+          }
+        })
+      } else {
+        // Find the first element in or near the viewport
+        const viewportMiddle = window.innerHeight / 2
+        let closestDistance = Infinity
+
+        elements.forEach((el, i) => {
+          const rect = el.getBoundingClientRect()
+          const distance = Math.abs(rect.top - viewportMiddle)
+          if (distance < closestDistance) {
+            closestDistance = distance
+            targetIndex = i
+          }
+        })
+      }
+
+      currentIndexRef.current = targetIndex
+      updateFocusedElement(elements, targetIndex)
       setMode("NORMAL")
-      setFocusedElement(null)
-      return
-    }
-
-    let targetIndex = 0
-
-    if (fromElement) {
-      // Stay on the element we came from
-      const fromRect = fromElement.getBoundingClientRect()
-      let closestDistance = Infinity
-
-      elements.forEach((el, i) => {
-        const rect = el.getBoundingClientRect()
-        const distance = Math.abs(rect.top - fromRect.top) + Math.abs(rect.left - fromRect.left)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          targetIndex = i
-        }
-      })
-    } else {
-      // Find the first element in or near the viewport
-      const viewportMiddle = window.innerHeight / 2
-      let closestDistance = Infinity
-
-      elements.forEach((el, i) => {
-        const rect = el.getBoundingClientRect()
-        const distance = Math.abs(rect.top - viewportMiddle)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          targetIndex = i
-        }
-      })
-    }
-
-    currentIndexRef.current = targetIndex
-    updateFocusedElement(elements, targetIndex)
-    setMode("NORMAL")
-  }, [getInteractiveElements, updateFocusedElement])
+    },
+    [getInteractiveElements, updateFocusedElement],
+  )
 
   const exitNormalMode = useCallback(() => {
     setMode("BROWSE")
@@ -254,7 +255,8 @@ export function VimModeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
-      const isInputFocused = target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable
+      const isInputFocused =
+        target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable
 
       // Allow Escape to work even when focused on inputs - blur and enter vim mode
       if (e.key === "Escape") {
