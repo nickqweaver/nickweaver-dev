@@ -1,6 +1,6 @@
-import { Post } from "@/lib/api"
 import { Icon } from "@iconify/react"
-import Link from "next/link"
+import { Link } from "@tanstack/react-router"
+import type { Post } from "@/lib/api"
 
 export function BlogPost({ title, excerpt, date, slug, githubRepo }: Post) {
   const truncated = excerpt.length > 160 ? `${excerpt.slice(0, 160)}...` : excerpt
@@ -26,13 +26,14 @@ export function BlogPost({ title, excerpt, date, slug, githubRepo }: Post) {
         </div>
       </div>
       <h3 className="mt-3 text-xl font-semibold">
-        <Link href={`/blog/${slug}`} className="hover:text-primary">
+        <Link to="/blog/$slug" params={{ slug }} className="hover:text-primary">
           {title}
         </Link>
       </h3>
       <p className="mt-3 text-sm text-muted-foreground">{truncated}</p>
       <Link
-        href={`/blog/${slug}`}
+        to="/blog/$slug"
+        params={{ slug }}
         className="mt-4 inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-primary"
       >
         Read more

@@ -1,8 +1,15 @@
-import Link from "next/link"
+import { Link, createFileRoute } from "@tanstack/react-router"
 import { getAllPosts } from "@/lib/api"
+import { homeHead } from "@/lib/seo"
 
-export default function BlogPage() {
-  const posts = getAllPosts()
+export const Route = createFileRoute("/blog/")({
+  loader: () => getAllPosts(),
+  head: () => homeHead("/blog"),
+  component: BlogPage,
+})
+
+function BlogPage() {
+  const posts = Route.useLoaderData()
 
   return (
     <main className="container py-12 md:py-16">
@@ -22,6 +29,7 @@ export default function BlogPage() {
             year: "numeric",
             month: "short",
             day: "numeric",
+            timeZone: "UTC",
           })
           return (
             <article
@@ -31,7 +39,8 @@ export default function BlogPage() {
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
                 <span className="text-muted-foreground text-sm shrink-0 w-28">{date}</span>
                 <Link
-                  href={`/blog/${post.slug}`}
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
                   className="text-foreground hover:text-primary transition-colors"
                 >
                   {post.title}
@@ -46,10 +55,7 @@ export default function BlogPage() {
       </div>
 
       <div className="mt-8">
-        <Link
-          href="/"
-          className="text-sm text-muted-foreground hover:text-primary transition-colors"
-        >
+        <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
           ← back home
         </Link>
       </div>

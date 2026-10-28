@@ -1,0 +1,3 @@
+# Open Graph image URLs published by the old Next.js site, still cached by social networks.
+/opengraph-image /og/home.png 301
+/blog/:slug/opengraph-image /og/blog/:slug.png 301

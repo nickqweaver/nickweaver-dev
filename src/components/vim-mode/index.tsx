@@ -1,5 +1,3 @@
-"use client"
-
 import { VimModeProvider } from "./vim-mode-context"
 import { StatusLine } from "./status-line"
 import { CursorLine } from "./cursor-line"

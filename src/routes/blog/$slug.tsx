@@ -1,22 +1,28 @@
-import Link from "next/link"
+import { Link, createFileRoute } from "@tanstack/react-router"
 import { getPost } from "@/lib/api"
-import { renderMarkdown } from "@/lib/markdown"
-import { notFound } from "next/navigation"
+import { ogPostPath, pageHead } from "@/lib/seo"
 import { CodeBlockEnhancer } from "@/components/code-block-enhancer"
 
-export default async function Post({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug)
+export const Route = createFileRoute("/blog/$slug")({
+  // getPost throws notFound() for unknown slugs and drafts (drafts are never compiled in).
+  loader: ({ params }) => getPost({ data: params.slug }),
+  head: ({ params }) =>
+    pageHead({
+      path: `/blog/${params.slug}`,
+      image: ogPostPath(params.slug),
+      imageAlt: "Blog Post",
+    }),
+  component: Post,
+})
 
-  if (post.status !== "active") {
-    notFound()
-  }
-
-  const html = await renderMarkdown(post.content)
+function Post() {
+  const post = Route.useLoaderData()
 
   const date = new Date(post.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: "UTC",
   })
 
   return (
@@ -38,7 +44,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
         <div className="prose prose-sm max-w-none dark:prose-invert md:prose-base prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-code:text-dr-cyan">
           <CodeBlockEnhancer>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <div dangerouslySetInnerHTML={{ __html: post.html }} />
           </CodeBlockEnhancer>
         </div>
 
@@ -46,13 +52,13 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
         <div className="flex gap-6">
           <Link
-            href="/blog"
+            to="/blog"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             ← all posts
           </Link>
           <Link
-            href="/"
+            to="/"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             ← home

@@ -1,11 +1,9 @@
-"use client"
-
 import { useVimMode } from "./vim-mode-context"
-import { usePathname } from "next/navigation"
+import { useLocation } from "@tanstack/react-router"
 
 export function StatusLine() {
   const { mode } = useVimMode()
-  const pathname = usePathname()
+  const pathname = useLocation({ select: (location) => location.pathname })
 
   const pathDisplay = pathname === "/" ? "~" : `~${pathname}`
 
@@ -26,12 +24,10 @@ export function StatusLine() {
                 enter <span className="text-muted-foreground/50">select</span>
                 <span className="mx-2 text-border">·</span>
                 g/G <span className="text-muted-foreground/50">top/end</span>
-                <span className="mx-2 text-border">·</span>
-                q <span className="text-muted-foreground/50">quit</span>
+                <span className="mx-2 text-border">·</span>q{" "}
+                <span className="text-muted-foreground/50">quit</span>
               </span>
-              <span className="text-muted-foreground sm:hidden">
-                ⌘K · j/k · enter · q
-              </span>
+              <span className="text-muted-foreground sm:hidden">⌘K · j/k · enter · q</span>
               <span className="bg-dr-green text-background px-2 py-0.5 font-bold">NORMAL</span>
             </>
           ) : (
@@ -39,9 +35,7 @@ export function StatusLine() {
               <span className="text-muted-foreground hidden sm:inline">
                 esc <span className="text-muted-foreground/50">vim mode</span>
               </span>
-              <span className="text-muted-foreground sm:hidden">
-                ⌘K · esc
-              </span>
+              <span className="text-muted-foreground sm:hidden">⌘K · esc</span>
               <span className="bg-muted text-muted-foreground px-2 py-0.5">BROWSE</span>
             </>
           )}

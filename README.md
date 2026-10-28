@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nickweaver.dev
 
-## Getting Started
+Personal site built with [TanStack Start](https://tanstack.com/start) and React, running on
+[Cloudflare Workers](https://developers.cloudflare.com/workers/framework-guides/web-apps/tanstack-start/)
+via `@cloudflare/vite-plugin`.
 
-First, run the development server:
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .dev.vars.example .dev.vars # optional: only needed to send contact form messages
+npm run dev                    # http://localhost:3000, runs the server code in workerd
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` - Vite dev server with the Worker running in the local Workers runtime
+- `npm run build` - production build into `dist/` (`dist/client` static assets, `dist/server` Worker + `wrangler.json`)
+- `npm run preview` - serve the production build in the local Workers runtime
+- `npm run typecheck` - `tsc --noEmit`
+- `npm run format` / `npm run format:write` - Prettier check / write
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content
 
-## Learn More
+- Blog posts live in `_posts/*.md`, the resume in `_content/resume.md`. Only posts with
+  `status: "active"` front matter are published.
+- `plugins/content.ts` parses and renders the markdown at build time and exposes it as the
+  `virtual:content` module, so the Worker never reads the filesystem. Edits reload in dev.
+- `plugins/og-images.ts` renders the Open Graph images (`/og/home.png`, `/og/blog/<slug>.png`)
+  at build time with satori + resvg and emits them as static assets.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The contact form (`POST /api/contact`) posts to a Discord webhook read from the
+`DISCORD_WEBHOOK_URL` Worker binding (`import { env } from "cloudflare:workers"`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` reads `.dev.vars` in the repo root (see `.dev.vars.example`).
+- `npm run preview` reads `.dev.vars` next to the built config, so copy it first:
+  `cp .dev.vars dist/server/.dev.vars`.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+There is no `wrangler.*` file in the repo: deploys generate the Worker config and pass it to
+the Cloudflare Vite plugin through `SST_WRANGLER_PATH`. Locally `vite.config.ts` supplies the
+equivalent (`main`, `nodejs_compat`).

@@ -1,7 +1,6 @@
-import fs from "fs"
-import path from "path"
-import { join } from "path"
-import matter from "gray-matter"
+import { notFound } from "@tanstack/react-router"
+import { createServerFn } from "@tanstack/react-start"
+import { posts, resume } from "virtual:content"
 
 export type Post = {
   title: string
@@ -9,56 +8,33 @@ export type Post = {
   date: string
   author: { name: string; profileImageUrl?: string }
   ogImage: string
-  content: string
   slug: string
   githubRepo?: string
   readingTime: string
   status: "active" | "draft"
 }
 
-const POSTS_DIR = path.join(process.cwd(), "_posts")
+export type PostWithHtml = Post & { html: string }
 
-export function getSlugs() {
-  const fileNames = fs.readdirSync(POSTS_DIR)
-
-  return fileNames.map((fileName) => {
-    return fileName.replace(/\.md$/, "")
-  })
-}
-
-export function getPost(slug: string) {
-  const fullPath = join(POSTS_DIR, `${slug}.md`)
-  const contents = fs.readFileSync(fullPath, "utf8")
-
-  const { data, content } = matter(contents)
-
-  return { ...data, slug, content } as unknown as Post
-}
-
-export function getAllPosts() {
-  const slugs = getSlugs()
-
-  return slugs.map((slug) => getPost(slug)).filter((post) => post.status === "active")
-}
-
-// Resume
 export type Resume = {
   title: string
   lastUpdated: string
-  content: string
+  html: string
 }
 
-const CONTENT_DIR = path.join(process.cwd(), "_content")
+// Content is compiled at build time by `plugins/content.ts` and only contains active posts.
+// Server functions keep the rendered HTML in the Worker bundle instead of the client bundle.
 
-export function getResume(): Resume {
-  const fullPath = join(CONTENT_DIR, "resume.md")
-  const contents = fs.readFileSync(fullPath, "utf8")
+export const getAllPosts = createServerFn({ method: "GET" }).handler((): Post[] =>
+  posts.map(({ html: _html, ...post }) => post),
+)
 
-  const { data, content } = matter(contents)
+export const getPost = createServerFn({ method: "GET" })
+  .validator((slug: string) => slug)
+  .handler(({ data: slug }): PostWithHtml => {
+    const post = posts.find((candidate) => candidate.slug === slug)
+    if (!post) throw notFound()
+    return post
+  })
 
-  return {
-    title: data.title || "Resume",
-    lastUpdated: data.lastUpdated || "",
-    content,
-  }
-}
+export const getResume = createServerFn({ method: "GET" }).handler((): Resume => resume)

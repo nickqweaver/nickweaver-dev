@@ -1,7 +1,5 @@
-"use client"
-
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@tanstack/react-router"
 import { useTheme } from "next-themes"
 import {
   CommandDialog,
@@ -13,7 +11,10 @@ import {
   CommandSeparator,
 } from "@/components/ui/command"
 
-const CommandMenuContext = createContext<{ open: boolean; setOpen: (open: boolean) => void } | null>(null)
+const CommandMenuContext = createContext<{
+  open: boolean
+  setOpen: (open: boolean) => void
+} | null>(null)
 
 export function useCommandMenu() {
   const context = useContext(CommandMenuContext)
@@ -36,8 +37,16 @@ const sections = [
 
 const socials = [
   { name: "GitHub", href: "https://github.com/nickqweaver", keywords: ["github", "code", "repo"] },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/nicholas-q-weaver/", keywords: ["linkedin", "professional"] },
-  { name: "X / Twitter", href: "https://twitter.com/TheSWEaver", keywords: ["twitter", "x", "social"] },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/nicholas-q-weaver/",
+    keywords: ["linkedin", "professional"],
+  },
+  {
+    name: "X / Twitter",
+    href: "https://twitter.com/TheSWEaver",
+    keywords: ["twitter", "x", "social"],
+  },
 ]
 
 export function CommandMenuProvider({ children }: { children: ReactNode }) {
@@ -84,7 +93,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={page.href}
               value={page.name + " " + page.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.push(page.href))}
+              onSelect={() => runCommand(() => router.navigate({ href: page.href }))}
             >
               <span className="text-dr-green mr-2">→</span>
               {page.name}
@@ -99,7 +108,7 @@ function CommandMenuDialog() {
             <CommandItem
               key={section.href}
               value={section.name + " " + section.keywords.join(" ")}
-              onSelect={() => runCommand(() => router.push(section.href))}
+              onSelect={() => runCommand(() => router.navigate({ href: section.href }))}
             >
               <span className="text-dr-purple mr-2">#</span>
               {section.name}
@@ -110,10 +119,7 @@ function CommandMenuDialog() {
         <CommandSeparator />
 
         <CommandGroup heading="Theme">
-          <CommandItem
-            value="dark mode theme"
-            onSelect={() => runCommand(() => setTheme("dark"))}
-          >
+          <CommandItem value="dark mode theme" onSelect={() => runCommand(() => setTheme("dark"))}>
             <span className="text-dr-cyan mr-2">◐</span>
             Dark Mode
           </CommandItem>
