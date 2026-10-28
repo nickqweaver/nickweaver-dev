@@ -8,6 +8,9 @@ export function getRouter() {
     defaultPreload: "intent",
     defaultNotFoundComponent: NotFound,
     scrollRestoration: true,
+    // `scroll-smooth` on <html> would otherwise animate the scroll reset on every route change,
+    // gliding the new page up from the old scroll position. Hash links still scroll smoothly.
+    scrollRestorationBehavior: "instant",
   })
 }
 
