@@ -1,4 +1,3 @@
-import { motion } from "framer-motion"
 import { useRouterState } from "@tanstack/react-router"
 import type { ReactNode } from "react"
 
@@ -9,14 +8,11 @@ export function PageTransition({ children }: { children: ReactNode }) {
     select: (state) => state.resolvedLocation?.pathname ?? state.location.pathname,
   })
 
+  // A CSS fade rather than framer-motion: framer drops its finished animation a frame before
+  // committing `opacity: 1`, so every page blinked out for one frame at the end of the fade.
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-    >
+    <div key={pathname} className="animate-in fade-in duration-200 ease-out">
       {children}
-    </motion.div>
+    </div>
   )
 }
