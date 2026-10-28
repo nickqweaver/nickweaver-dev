@@ -34,11 +34,11 @@ const experience = [
 
 const projects = [
   {
-    name: "uploadslate",
-    desc: "Developer-first file uploads with CDN transforms and multi-tenant asset management.",
-    tags: ["uploads", "transforms", "bun"],
+    name: "lineset",
+    desc: "AI receptionist for contractors. Answers calls, texts, and messages 24/7 and books jobs onto the right tech's calendar.",
+    tags: ["ai-agents", "go", "tanstackstart"],
     status: "live",
-    link: "https://uploadslate.com",
+    link: "https://lineset.app",
   },
   {
     name: "dataloader-bench",
