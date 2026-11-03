@@ -51,6 +51,7 @@ const projects = [
     name: "rag-lab",
     desc: "Small local rag app, pluggable embedding models, chunking strategies and comparison reports on dense vs hybrid retrieval",
     tags: ["rag", "llm", "learning"],
+    status: "live",
     link: "https://github.com/nickqweaver/rag-lab",
   },
   {
