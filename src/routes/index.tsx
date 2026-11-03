@@ -48,6 +48,12 @@ const projects = [
     link: "https://github.com/nickqweaver/graphql-dataloader-example",
   },
   {
+    name: "rag-lab",
+    desc: "Small local rag app, pluggable embedding models, chunking strategies and comparison reports on dense vs hybrid retrieval",
+    tags: ["rag", "llm", "learning"],
+    link: "https://github.com/nickqweaver/rag-lab",
+  },
+  {
     name: "cookweave",
     desc: "I got sick of scrolling through recipe blog ads. This app uses LLM's to extract recipe data off a URL.",
     tags: ["tanstackstart", "openai", "microrag"],
